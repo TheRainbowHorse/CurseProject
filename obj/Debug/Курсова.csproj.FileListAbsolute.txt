@@ -1,0 +1,11 @@
+E:\Уроки\4 курс\ВООП\Курсова\bin\Debug\Курсова.exe.config
+E:\Уроки\4 курс\ВООП\Курсова\bin\Debug\Курсова.exe
+E:\Уроки\4 курс\ВООП\Курсова\bin\Debug\Курсова.pdb
+E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.Properties.Resources.resources
+E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.csproj.GenerateResource.cache
+E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.csproj.CoreCompileInputs.cache
+E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.exe
+E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.pdb
+e:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.csproj.AssemblyReference.cache
+e:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.Form1.resources
+E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.FormChart.resources
