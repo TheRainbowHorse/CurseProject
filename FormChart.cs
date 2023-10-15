@@ -120,5 +120,14 @@ namespace Курсова
             chartF1.ChartAreas[0].AxisX.ScaleView.ZoomReset(0);
             chartF1.ChartAreas[0].AxisY.ScaleView.ZoomReset(0);
         }
+
+        private void chartF1_AxisViewChanged(object sender, ViewEventArgs e)
+        {
+            if (chartF1.ChartAreas[0].AxisX.ScaleView.Size <= 1E-05 || chartF1.ChartAreas[0].AxisY.ScaleView.Size <= 1E-05)
+            {
+                chartF1.ChartAreas[0].CursorX.IsUserSelectionEnabled = false;
+                chartF1.ChartAreas[0].CursorY.IsUserSelectionEnabled = false;
+            }
+        }
     }
 }

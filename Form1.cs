@@ -642,8 +642,8 @@ namespace Курсова
                 showChartToolStripMenuItem.Checked = true;
                 //chart1.Series[0].Points.Clear();
                 //chart1.Series[1].Points.Clear();
-                chart1.Visible = true;
                 button2.Visible = true;
+                chart1.Visible = true;
                 floatableChartToolStripMenuItem.Enabled = true;
             }
         }
@@ -661,8 +661,8 @@ namespace Курсова
                         fc = f;
                     }
                 if (fc != null) fc.Close(); //floatableChartToolStripMenuItem.Checked and hideFloatableChartToolStripMenuItem.Checked = false
-                chart1.Visible = true;
                 button2.Visible = true;
+                chart1.Visible = true;
             }
             else
             {
@@ -810,7 +810,6 @@ namespace Курсова
             {
                 chart1.ChartAreas[0].CursorX.IsUserSelectionEnabled = false;
                 chart1.ChartAreas[0].CursorY.IsUserSelectionEnabled = false;
-
             }
         }
     }
