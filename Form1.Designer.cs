@@ -34,6 +34,7 @@ namespace Курсова
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -58,14 +59,18 @@ namespace Курсова
             this.showChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.floatableChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpF1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.showSecondSolveContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.hideSecondSolveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartContextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.hideFloatableChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideFloatableChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -76,14 +81,14 @@ namespace Курсова
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(139, 131);
+            this.textBox1.Location = new System.Drawing.Point(88, 87);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(205, 22);
             this.textBox1.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(139, 156);
+            this.button1.Location = new System.Drawing.Point(144, 115);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(64, 20);
             this.button1.TabIndex = 1;
@@ -96,7 +101,7 @@ namespace Курсова
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(0, 25);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(156, 290);
+            this.listBox1.Size = new System.Drawing.Size(156, 303);
             this.listBox1.TabIndex = 3;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -114,30 +119,30 @@ namespace Курсова
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(160, 31);
+            this.textBox2.Location = new System.Drawing.Point(155, 31);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(43, 22);
+            this.textBox2.Size = new System.Drawing.Size(22, 22);
             this.textBox2.TabIndex = 5;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(255, 31);
+            this.textBox3.Location = new System.Drawing.Point(271, 31);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(43, 22);
+            this.textBox3.Size = new System.Drawing.Size(22, 22);
             this.textBox3.TabIndex = 6;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(164, 63);
+            this.textBox4.Location = new System.Drawing.Point(123, 59);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(43, 22);
+            this.textBox4.Size = new System.Drawing.Size(22, 22);
             this.textBox4.TabIndex = 8;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(225, 63);
+            this.textBox5.Location = new System.Drawing.Point(155, 59);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(43, 22);
+            this.textBox5.Size = new System.Drawing.Size(22, 22);
             this.textBox5.TabIndex = 7;
             // 
             // label1
@@ -152,7 +157,7 @@ namespace Курсова
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(208, 34);
+            this.label2.Location = new System.Drawing.Point(224, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 10;
@@ -161,7 +166,7 @@ namespace Курсова
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(80, 66);
+            this.label3.Location = new System.Drawing.Point(45, 62);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 11;
@@ -170,7 +175,7 @@ namespace Курсова
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(212, 66);
+            this.label4.Location = new System.Drawing.Point(145, 62);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(10, 13);
             this.label4.TabIndex = 12;
@@ -179,7 +184,7 @@ namespace Курсова
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(273, 66);
+            this.label5.Location = new System.Drawing.Point(177, 62);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(11, 13);
             this.label5.TabIndex = 13;
@@ -188,7 +193,7 @@ namespace Курсова
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(110, 133);
+            this.label6.Location = new System.Drawing.Point(59, 89);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(27, 13);
             this.label6.TabIndex = 14;
@@ -196,15 +201,15 @@ namespace Курсова
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(194, 96);
+            this.textBox6.Location = new System.Drawing.Point(271, 59);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(86, 22);
+            this.textBox6.Size = new System.Drawing.Size(22, 22);
             this.textBox6.TabIndex = 15;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(131, 99);
+            this.label7.Location = new System.Drawing.Point(214, 62);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(57, 13);
             this.label7.TabIndex = 16;
@@ -215,7 +220,7 @@ namespace Курсова
             this.listBox2.FormattingEnabled = true;
             this.listBox2.Location = new System.Drawing.Point(0, 25);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(156, 290);
+            this.listBox2.Size = new System.Drawing.Size(156, 303);
             this.listBox2.TabIndex = 17;
             this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
@@ -281,11 +286,33 @@ namespace Курсова
             // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpF1ToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.aboutProgramToolStripMenuItem});
             this.helpToolStripMenuItem.Enabled = false;
             this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
             this.helpToolStripMenuItem.Text = "Довідка";
+            // 
+            // helpF1ToolStripMenuItem
+            // 
+            this.helpF1ToolStripMenuItem.Name = "helpF1ToolStripMenuItem";
+            this.helpF1ToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.helpF1ToolStripMenuItem.Tag = "";
+            this.helpF1ToolStripMenuItem.Text = "Довідка (F1)";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(151, 6);
+            // 
+            // aboutProgramToolStripMenuItem
+            // 
+            this.aboutProgramToolStripMenuItem.Name = "aboutProgramToolStripMenuItem";
+            this.aboutProgramToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.aboutProgramToolStripMenuItem.Text = "Про програму";
             // 
             // panel1
             // 
@@ -324,34 +351,51 @@ namespace Курсова
             // 
             // chart1
             // 
+            chartArea1.AxisX.IsMarginVisible = false;
+            chartArea1.AxisX.LabelStyle.Format = "0.0000";
+            chartArea1.AxisX.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
+            chartArea1.AxisX2.LabelStyle.Format = "0.0000";
+            chartArea1.AxisX2.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
+            chartArea1.AxisY.LabelStyle.Format = "0.000";
+            chartArea1.AxisY.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
+            chartArea1.AxisY2.LabelStyle.Format = "0.000";
+            chartArea1.AxisY2.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.ContextMenuStrip = this.chartContextMenuStrip1;
+            this.chart1.Cursor = System.Windows.Forms.Cursors.Cross;
+            legend1.AutoFitMinFontSize = 5;
             legend1.Enabled = false;
             legend1.Name = "Legend1";
+            legend1.Position.Auto = false;
+            legend1.Position.Height = 16.10169F;
+            legend1.Position.Width = 36.38969F;
+            legend1.Position.X = 60.61031F;
+            legend1.Position.Y = 3F;
             this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(12, 182);
+            this.chart1.Location = new System.Drawing.Point(12, 141);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Color = System.Drawing.Color.Blue;
             series1.Legend = "Legend1";
             series1.LegendText = "Перший метод";
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
             series1.Name = "Series1";
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series2.Color = System.Drawing.Color.Red;
+            series2.IsVisibleInLegend = false;
             series2.Legend = "Legend1";
             series2.LegendText = "Другий метод";
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Triangle;
             series2.Name = "Series2";
             this.chart1.Series.Add(series1);
             this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(350, 196);
+            this.chart1.Size = new System.Drawing.Size(350, 237);
             this.chart1.TabIndex = 5;
             this.chart1.Text = "chart1";
             this.chart1.Visible = false;
+            this.chart1.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.chart1_AxisViewChanged);
+            this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
             // chartContextMenuStrip1
             // 
@@ -359,14 +403,7 @@ namespace Курсова
             this.hideChartToolStripMenuItem,
             this.hideFloatableChartToolStripMenuItem});
             this.chartContextMenuStrip1.Name = "chartContextMenuStrip1";
-            this.chartContextMenuStrip1.Size = new System.Drawing.Size(184, 70);
-            // 
-            // hideFloatableChartToolStripMenuItem
-            // 
-            this.hideFloatableChartToolStripMenuItem.Name = "hideFloatableChartToolStripMenuItem";
-            this.hideFloatableChartToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.hideFloatableChartToolStripMenuItem.Text = "Плаваючий графік";
-            this.hideFloatableChartToolStripMenuItem.Click += new System.EventHandler(this.hideFloatableChartToolStripMenuItem_Click);
+            this.chartContextMenuStrip1.Size = new System.Drawing.Size(184, 48);
             // 
             // hideChartToolStripMenuItem
             // 
@@ -375,11 +412,30 @@ namespace Курсова
             this.hideChartToolStripMenuItem.Text = "Приховати графік";
             this.hideChartToolStripMenuItem.Click += new System.EventHandler(this.hideChartToolStripMenuItem_Click);
             // 
+            // hideFloatableChartToolStripMenuItem
+            // 
+            this.hideFloatableChartToolStripMenuItem.Name = "hideFloatableChartToolStripMenuItem";
+            this.hideFloatableChartToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.hideFloatableChartToolStripMenuItem.Text = "Плаваючий графік";
+            this.hideFloatableChartToolStripMenuItem.Click += new System.EventHandler(this.hideFloatableChartToolStripMenuItem_Click);
+            // 
+            // button2
+            // 
+            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button2.Location = new System.Drawing.Point(12, 351);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(27, 27);
+            this.button2.TabIndex = 24;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(686, 390);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
@@ -450,6 +506,10 @@ namespace Курсова
         private System.Windows.Forms.ToolStripMenuItem hideChartToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem hideFloatableChartToolStripMenuItem;
         public System.Windows.Forms.ContextMenuStrip chartContextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem helpF1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem aboutProgramToolStripMenuItem;
+        public System.Windows.Forms.Button button2;
     }
 }
 
