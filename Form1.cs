@@ -15,6 +15,9 @@ namespace Курсова
 {
     public partial class Form1 : Form
     {
+        byte finished = 1;
+        bool stopFlag = false;
+
         private Conditions conditions;
         public Form1()
         {
@@ -24,9 +27,9 @@ namespace Курсова
         private void Form1_Load(object sender, EventArgs e)
         {
             panel2.Visible = false;
-            panel1.Size = new Size(318, 366);
-            listBox1.Size = new Size(315, 303);
-            comboBox1.Size = new Size(310, 21);
+            panel1.Width = 318;
+            listBox1.Width = 315;
+            comboBox1.Width = 310;
             //panel1.Location = new Point(611, 44);
             comboBox1.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
@@ -84,6 +87,11 @@ namespace Курсова
 
         private void button1_Click(object sender, EventArgs e)
         {
+            button1.Enabled = false;
+            button3.Enabled = true;
+            finished = 1;
+            if (chart1.Visible) chart1.Visible = false;
+
             double xmin;
             double xmax;
             double y0;
@@ -121,6 +129,8 @@ namespace Курсова
                 }
             listBox1.Items.Clear();
             listBox2.Items.Clear();
+            listBox1.Items.Add("x\t y");
+            listBox2.Items.Add("x\t y");
             switch (comboBox1.SelectedIndex)
             {
                 case 0:
@@ -153,6 +163,8 @@ namespace Курсова
                     break;
             }
             if (showSecondSolveToolStripMenuItem.Checked)
+            {
+                finished--;
                 switch (comboBox2.SelectedIndex)
                 {
                     case 0:
@@ -184,6 +196,7 @@ namespace Курсова
 
                         break;
                 }
+            }
         }
 
         string calculate(string equation)//When expression contains "()", "sin()", "sqrt()" etc.
@@ -285,7 +298,7 @@ namespace Курсова
             };
             for (int i = 0; i < equation.Length; i++)
             {
-                if (!char.IsDigit(equation[i]) && equation[i] != ',' && i != 0 && equation[i - 1] != 'E' && equation[i] != 'E')
+                if (!char.IsDigit(equation[i]) && equation[i] != ',' && i != 0 && equation[i - 1].ToString().ToLower() != "e" && equation[i].ToString().ToLower() != "e")
                 {
                     if (equation[i] == '^')
                         dict['^'].Add(i);
@@ -297,7 +310,7 @@ namespace Курсова
             }
             for (int i = 0; i < equation.Length; i++)
             {
-                if (!char.IsDigit(equation[i]) && equation[i] != ',' && i != 0 && equation[i - 1] != 'E' && equation[i] != 'E')
+                if (!char.IsDigit(equation[i]) && equation[i] != ',' && i != 0 && equation[i - 1].ToString().ToLower() != "e" && equation[i].ToString().ToLower() != "e")
                 {
                     if (equation[i] == '*' || equation[i] == '/')
                         dict['*'].Add(i);
@@ -309,7 +322,7 @@ namespace Курсова
             }
             for (int i = 0; i < equation.Length; i++)
             {
-                if (!char.IsDigit(equation[i]) && equation[i] != ',' && i != 0 && equation[i - 1] != 'E' && equation[i] != 'E')
+                if (!char.IsDigit(equation[i]) && equation[i] != ',' && i != 0 && equation[i - 1].ToString().ToLower() != "e" && equation[i].ToString().ToLower() != "e")
                 {
                     if (equation[i] == '+' || equation[i] == '-')
                         dict['+'].Add(i);
@@ -438,7 +451,7 @@ namespace Курсова
             {
                 if (!onlyChart)
                 {
-                    Action action0 = () => listBox2.Items.Add(Convert.ToString(x0) + ") " + y0);
+                    Action action0 = () => listBox2.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
                     listBox2.Invoke(action0);
                 }
             }
@@ -446,14 +459,20 @@ namespace Курсова
             {
                 if (!onlyChart)
                 {
-                    Action action0 = () => listBox1.Items.Add(Convert.ToString(x0) + ") " + y0);
-                    listBox2.Invoke(action0);
+                    Action action0 = () => listBox1.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
+                    listBox1.Invoke(action0);
                 }
             }
             Action actionP0 = () => addPointToChart(x0, y0, isSecondary);
             Invoke(actionP0);
 
-            while (xmin + h < xmax)
+            int xminDC = GetDecimalDigitsCount(xmin);
+            if (xminDC < GetDecimalDigitsCount(h))
+                xminDC = GetDecimalDigitsCount(h);
+            int xmaxDC = GetDecimalDigitsCount(xmax);
+            if (xmaxDC < GetDecimalDigitsCount(h))
+                xmaxDC = GetDecimalDigitsCount(h);
+            while (Round(xmin, xminDC) + h <= Round(xmax, xmaxDC))
             {
                 double df = der(f, x0, y0);
                 double dfn = der(f, x0 + h, df * h + y0);
@@ -467,7 +486,7 @@ namespace Курсова
                 {
                     if (!onlyChart)
                     {
-                        Action action1 = () => listBox2.Items.Add(Convert.ToString(x0) + ") " + y0);
+                        Action action1 = () => listBox2.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
                         listBox2.Invoke(action1);
                     }
                 }
@@ -475,12 +494,23 @@ namespace Курсова
                 {
                     if (!onlyChart)
                     {
-                        Action action1 = () => listBox1.Items.Add(Convert.ToString(x0) + ") " + y0);
-                        listBox2.Invoke(action1);
+                        Action action1 = () => listBox1.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
+                        listBox1.Invoke(action1);
                     }
                 }
-                Action actionP1 = () => addPointToChart(x0, y0, isSecondary);
+                Action actionP1 = () => addPointToChart(Round(x0, GetDecimalDigitsCount(h)), y0, isSecondary);
                 Invoke(actionP1);
+                if (stopFlag) break;
+            }
+            if (++finished == 2)
+            {
+                Action actionB1 = () => button1.Enabled = true;
+                button1.Invoke(actionB1);
+                Action actionB3 = () => button3.Enabled = false;
+                button1.Invoke(actionB3);
+                Action actionV = () => chart1.Visible = true;
+                chart1.Invoke(actionV); ;
+                stopFlag = false;
             }
         }
         void euler(Object obj)
@@ -496,7 +526,7 @@ namespace Курсова
             {
                 if (!onlyChart)
                 {
-                    Action action0 = () => listBox2.Items.Add(Convert.ToString(x0) + ") " + y0);
+                    Action action0 = () => listBox2.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
                     listBox2.Invoke(action0);
                 }
             }
@@ -504,14 +534,19 @@ namespace Курсова
             {
                 if (!onlyChart)
                 {
-                    Action action0 = () => listBox1.Items.Add(Convert.ToString(x0) + ") " + y0);
-                    listBox2.Invoke(action0);
+                    Action action0 = () => listBox1.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
+                    listBox1.Invoke(action0);
                 }
             }
             Action actionP0 = () => addPointToChart(x0, y0, isSecondary);
             Invoke(actionP0);
-
-            while (xmin + h < xmax)
+            int xminDC = GetDecimalDigitsCount(xmin);
+            if (xminDC < GetDecimalDigitsCount(h))
+                xminDC = GetDecimalDigitsCount(h);
+            int xmaxDC = GetDecimalDigitsCount(xmax);
+            if (xmaxDC < GetDecimalDigitsCount(h))
+                xmaxDC = GetDecimalDigitsCount(h);
+            while (Round(xmin, xminDC) + h <= Round(xmax, xmaxDC))
             {
                 double y = y0 + h / 6 * (der(f, x0, y0) + 2 * k2(x0, y0, h) + 2 * k3(x0, y0, h) + k4(x0, y0, h));
 
@@ -523,7 +558,7 @@ namespace Курсова
                 {
                     if (!onlyChart)
                     {
-                        Action action1 = () => listBox2.Items.Add(Convert.ToString(x0) + ") " + y0);
+                        Action action1 = () => listBox2.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
                         listBox2.Invoke(action1);
                     }
                 }
@@ -531,12 +566,23 @@ namespace Курсова
                 {
                     if (!onlyChart)
                     {
-                        Action action1 = () => listBox1.Items.Add(Convert.ToString(x0) + ") " + y0);
-                        listBox2.Invoke(action1);
+                        Action action1 = () => listBox1.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
+                        listBox1.Invoke(action1);
                     }
                 }
                 Action actionP1 = () => addPointToChart(x0, y0, isSecondary);
                 Invoke(actionP1);
+                if (stopFlag) break;
+            }
+            if (++finished == 2)
+            {
+                Action actionB1 = () => button1.Enabled = true;
+                button1.Invoke(actionB1);
+                Action actionB3 = () => button3.Enabled = false;
+                button1.Invoke(actionB3);
+                Action actionV = () => chart1.Visible = true;
+                chart1.Invoke(actionV); ;
+                stopFlag = false;
             }
 
             double k2(double _x0, double _y0, double _h)
@@ -558,6 +604,28 @@ namespace Курсова
 
             rk(cond.equation, cond.x0, cond.y0, cond.xmin, cond.xmax, cond.h, cond.isSecondary, cond.onlyChart);
         }
+        static int GetDecimalDigitsCount(double number)
+        {
+            bool containsE = false;
+            string numberStr = Convert.ToString(number);
+            string countStr = "";
+            for (int i = 0; i < numberStr.Length; i++)
+            {
+                if (containsE)
+                {
+                    countStr += numberStr[i];
+                    if (i == numberStr.Length - 1)
+                        return Convert.ToInt32(countStr);
+                }
+                if (numberStr[i] == 'E')
+                {
+                    if (numberStr[++i] == '+') return 0;
+                    containsE = true;
+                }
+            }
+            string str = number.ToString(new System.Globalization.NumberFormatInfo() { NumberDecimalSeparator = "." });
+            return str.Contains(".") ? str.Remove(0, Math.Truncate(number).ToString().Length + 1).Length : 0;
+        }
 
         void addPointToChart(double x, double y, bool secondary)
         {
@@ -577,9 +645,9 @@ namespace Курсова
                 showSecondSolveToolStripMenuItem.Checked = false;
                 panel2.Visible = false;
 
-                panel1.Size = new Size(318, 366);
-                listBox1.Size = new Size(315, 303);
-                comboBox1.Size = new Size(310, 21);
+                panel1.Width = 318;
+                listBox1.Width = 315;
+                comboBox1.Width = 310;
 
                 //panel1.Location = new Point(611, 44);
             }
@@ -587,9 +655,9 @@ namespace Курсова
             {
                 showSecondSolveToolStripMenuItem.Checked = true;
 
-                panel1.Size = new Size(159, 366);
-                listBox1.Size = new Size(156, 303);
-                comboBox1.Size = new Size(151, 21);
+                panel1.Width = 159;
+                listBox1.Width = 156;
+                comboBox1.Width = 151;
 
                 //panel1.Location = new Point(423, 44);
                 panel2.Visible = true;
@@ -625,8 +693,7 @@ namespace Курсова
             {
                 floatableChartToolStripMenuItem.Enabled = false;
                 showChartToolStripMenuItem.Checked = false;
-                button2.Visible = false;
-                chart1.Visible = false;
+                panel3.Visible = false;
                 bool isFormChartExist = false;
                 Form fc = null;
                 foreach (Form f in Application.OpenForms)
@@ -642,8 +709,7 @@ namespace Курсова
                 showChartToolStripMenuItem.Checked = true;
                 //chart1.Series[0].Points.Clear();
                 //chart1.Series[1].Points.Clear();
-                button2.Visible = true;
-                chart1.Visible = true;
+                panel3.Visible = true;
                 floatableChartToolStripMenuItem.Enabled = true;
             }
         }
@@ -661,8 +727,7 @@ namespace Курсова
                         fc = f;
                     }
                 if (fc != null) fc.Close(); //floatableChartToolStripMenuItem.Checked and hideFloatableChartToolStripMenuItem.Checked = false
-                button2.Visible = true;
-                chart1.Visible = true;
+                panel3.Visible = true;
             }
             else
             {
@@ -670,8 +735,7 @@ namespace Курсова
                 hideFloatableChartToolStripMenuItem.Checked = true;
                 FormChart formChart = new FormChart(chart1.Series);
                 formChart.Show();
-                chart1.Visible = false;
-                button2.Visible = false;
+                panel3.Visible = false;
             }
         }
 
@@ -811,6 +875,11 @@ namespace Курсова
                 chart1.ChartAreas[0].CursorX.IsUserSelectionEnabled = false;
                 chart1.ChartAreas[0].CursorY.IsUserSelectionEnabled = false;
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            stopFlag = true;
         }
     }
 }

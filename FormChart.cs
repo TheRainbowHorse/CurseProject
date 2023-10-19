@@ -46,8 +46,7 @@ namespace Курсова
                     Form1 fm = (Form1)f;
                     if (fm.showChartToolStripMenuItem.Checked == true)
                     {
-                        fm.chart1.Visible = true;
-                        fm.button2.Visible = true;
+                        fm.panel3.Visible = true;
                     }
                     fm.floatableChartToolStripMenuItem.Checked = false;
                     fm.hideFloatableChartToolStripMenuItem.Checked = false;
