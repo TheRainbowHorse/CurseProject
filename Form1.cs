@@ -1,12 +1,9 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using static System.Math;
@@ -63,6 +60,9 @@ namespace Курсова
             chart1.ChartAreas[0].CursorY.LineColor = Color.Black;
             chart1.ChartAreas[0].CursorY.LineWidth = 1;
             chart1.ChartAreas[0].CursorY.LineDashStyle = ChartDashStyle.Dot;
+
+            saveFileDialog1.RestoreDirectory = true;
+            saveFileDialog1.InitialDirectory = System.IO.Path.GetFullPath("./Export");
         }
 
         private class Conditions
@@ -90,7 +90,6 @@ namespace Курсова
             button1.Enabled = false;
             button3.Enabled = true;
             finished = 1;
-            if (chart1.Visible) chart1.Visible = false;
 
             double xmin;
             double xmax;
@@ -508,8 +507,7 @@ namespace Курсова
                 button1.Invoke(actionB1);
                 Action actionB3 = () => button3.Enabled = false;
                 button1.Invoke(actionB3);
-                Action actionV = () => chart1.Visible = true;
-                chart1.Invoke(actionV); ;
+
                 stopFlag = false;
             }
         }
@@ -580,8 +578,7 @@ namespace Курсова
                 button1.Invoke(actionB1);
                 Action actionB3 = () => button3.Enabled = false;
                 button1.Invoke(actionB3);
-                Action actionV = () => chart1.Visible = true;
-                chart1.Invoke(actionV); ;
+                
                 stopFlag = false;
             }
 
@@ -855,9 +852,12 @@ namespace Курсова
 
         private void chart1_MouseMove(object sender, MouseEventArgs e)
         {
-            Point mousePoint = new Point(e.X, e.Y);
-            chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
-            chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
+            if (finished == 2)
+            {
+                Point mousePoint = new Point(e.X, e.Y);
+                chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
+                chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -880,6 +880,62 @@ namespace Курсова
         private void button3_Click(object sender, EventArgs e)
         {
             stopFlag = true;
+        }
+
+        private void exportChartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.FileName = "chart";
+            saveFileDialog1.Filter = "JPEG |*.jpeg|PNG |*.png|Точковий малюнок |*.bmp|TIFF |*.tiff|GIF |*.gif";
+            if (finished == 2)
+            try
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                    chart1.SaveImage(saveFileDialog1.FileName, (ChartImageFormat)saveFileDialog1.FilterIndex);
+            }
+            catch
+            {
+                MessageBox.Show("Помилка збереження");
+            }
+            else MessageBox.Show("Неможливо зберегти до розрахунку");
+        }
+
+        private void exportListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var workbook = new XLWorkbook();
+            var sheet = workbook.Worksheets.Add("Результат рішення Диф.рівнянь");
+            
+            saveFileDialog1.FileName = "points";
+            saveFileDialog1.Filter = "Книга Excel |*.xlsx|Книга Excel з підтримкою макросів |*.xlsm|Шаблон Excel |*.xltx|Шаблон Excel з підтримкою макросів |*.xltm";
+            if (finished == 2)
+            try
+            {
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    sheet.Cell(1, 1).SetValue("Методом " + comboBox1.Text);
+                    for (int i = 0; i < listBox1.Items.Count; i++)
+                    {
+                        string[] row = listBox1.Items[i].ToString().Split('\t');
+                        sheet.Cell(i + 2, 1).SetValue(row[0]);
+                        sheet.Cell(i + 2, 2).SetValue(row[1]);
+                    }
+                    if (showSecondSolveToolStripMenuItem.Checked)
+                    {
+                        sheet.Cell(1, 4).SetValue("Методом " + comboBox2.Text);
+                        for (int i = 0; i < listBox2.Items.Count; i++)
+                        {
+                            string[] row2 = listBox2.Items[i].ToString().Split('\t');
+                            sheet.Cell(i + 2, 4).SetValue(row2[0]);
+                            sheet.Cell(i + 2, 5).SetValue(row2[1]);
+                        }
+                    }
+                    workbook.SaveAs(saveFileDialog1.FileName);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Помилка збереження");
+            }
+            else MessageBox.Show("Неможливо зберегти до розрахунку");
         }
     }
 }
