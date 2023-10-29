@@ -52,3 +52,4 @@ E:\Уроки\4 курс\ВООП\Курсова\bin\Debug\DocumentFormat.OpenXm
 E:\Уроки\4 курс\ВООП\Курсова\bin\Debug\ExcelNumberFormat.xml
 E:\Уроки\4 курс\ВООП\Курсова\bin\Debug\SixLabors.Fonts.xml
 E:\Уроки\4 курс\ВООП\Курсова\bin\Debug\System.IO.Packaging.xml
+E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.FormModalShowManyMethods.resources

@@ -46,7 +46,7 @@ namespace Курсова
                     Form1 fm = (Form1)f;
                     if (fm.showChartToolStripMenuItem.Checked == true)
                     {
-                        fm.panel3.Visible = true;
+                        fm.panelChart.Visible = true;
                     }
                     fm.floatableChartToolStripMenuItem.Checked = false;
                     fm.hideFloatableChartToolStripMenuItem.Checked = false;
@@ -57,6 +57,9 @@ namespace Курсова
                     fm.chart1.Series[1].Points.Clear();
                     foreach (DataPoint dp in chartF1.Series[1].Points.ToArray<DataPoint>())
                         fm.chart1.Series[1].Points.Add(dp);
+                    fm.chart1.Series[2].Points.Clear();
+                    foreach (DataPoint dp in chartF1.Series[2].Points.ToArray<DataPoint>())
+                        fm.chart1.Series[2].Points.Add(dp);
                     fm.chart1.ChartAreas[0].AxisX.ScaleView.Position = chartF1.ChartAreas[0].AxisX.ScaleView.Position;
                     fm.chart1.ChartAreas[0].AxisX.ScaleView.Size = chartF1.ChartAreas[0].AxisX.ScaleView.Size;
                     fm.chart1.ChartAreas[0].AxisY.ScaleView.Position = chartF1.ChartAreas[0].AxisY.ScaleView.Position;
@@ -67,15 +70,21 @@ namespace Курсова
 
         private void FormChart_Load(object sender, EventArgs e)
         {
+            this.WindowState = FormWindowState.Maximized;
             chartF1.Series[0].Points.Clear();
             foreach (DataPoint dp in ownerSeries[0].Points.ToArray<DataPoint>())
                 chartF1.Series[0].Points.Add(dp);
             chartF1.Series[1].Points.Clear();
             foreach (DataPoint dp in ownerSeries[1].Points.ToArray<DataPoint>())
                 chartF1.Series[1].Points.Add(dp);
+            chartF1.Series[2].Points.Clear();
+            foreach (DataPoint dp in ownerSeries[2].Points.ToArray<DataPoint>())
+                chartF1.Series[2].Points.Add(dp);
             if (ownerSeries[1].IsVisibleInLegend) chartF1.Series[1].IsVisibleInLegend = true;
+            if (ownerSeries[2].IsVisibleInLegend) chartF1.Series[2].IsVisibleInLegend = true;
             chartF1.Series[0].LegendText = ownerSeries[0].LegendText;
             chartF1.Series[1].LegendText = ownerSeries[1].LegendText;
+            chartF1.Series[2].LegendText = ownerSeries[2].LegendText;
 
             foreach (Form f in Application.OpenForms)
                 if (f.Name == "Form1")

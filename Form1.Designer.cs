@@ -32,8 +32,9 @@ namespace Курсова
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -58,7 +59,7 @@ namespace Курсова
             this.exportChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showSecondSolveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showManyMethodsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.floatableChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allowCopyByClickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,8 +86,12 @@ namespace Курсова
             this.hideFloatableChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportChartToolStripContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button2 = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.panelChart = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.listBox3 = new System.Windows.Forms.ListBox();
+            this.panelConditions = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.listContextMenuStrip.SuspendLayout();
@@ -94,19 +99,21 @@ namespace Курсова
             this.listContextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.chartContextMenuStrip1.SuspendLayout();
+            this.panelChart.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panelConditions.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(88, 87);
+            this.textBox1.Location = new System.Drawing.Point(88, 61);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(205, 22);
             this.textBox1.TabIndex = 0;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(155, 115);
+            this.button1.Location = new System.Drawing.Point(155, 89);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(64, 20);
             this.button1.TabIndex = 1;
@@ -128,6 +135,8 @@ namespace Курсова
             // 
             // comboBox1
             // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
@@ -141,28 +150,28 @@ namespace Курсова
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(155, 31);
+            this.textBox2.Location = new System.Drawing.Point(155, 5);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(22, 22);
             this.textBox2.TabIndex = 5;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(271, 31);
+            this.textBox3.Location = new System.Drawing.Point(271, 5);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(22, 22);
             this.textBox3.TabIndex = 6;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(123, 59);
+            this.textBox4.Location = new System.Drawing.Point(123, 33);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(22, 22);
             this.textBox4.TabIndex = 8;
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(155, 59);
+            this.textBox5.Location = new System.Drawing.Point(155, 33);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(22, 22);
             this.textBox5.TabIndex = 7;
@@ -170,7 +179,7 @@ namespace Курсова
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 34);
+            this.label1.Location = new System.Drawing.Point(27, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(127, 13);
             this.label1.TabIndex = 9;
@@ -179,7 +188,7 @@ namespace Курсова
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(224, 34);
+            this.label2.Location = new System.Drawing.Point(224, 8);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 10;
@@ -188,7 +197,7 @@ namespace Курсова
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(45, 62);
+            this.label3.Location = new System.Drawing.Point(45, 36);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 11;
@@ -197,7 +206,7 @@ namespace Курсова
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(145, 62);
+            this.label4.Location = new System.Drawing.Point(145, 36);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(10, 13);
             this.label4.TabIndex = 12;
@@ -206,7 +215,7 @@ namespace Курсова
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(177, 62);
+            this.label5.Location = new System.Drawing.Point(177, 36);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(11, 13);
             this.label5.TabIndex = 13;
@@ -215,7 +224,7 @@ namespace Курсова
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(59, 89);
+            this.label6.Location = new System.Drawing.Point(59, 63);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(27, 13);
             this.label6.TabIndex = 14;
@@ -223,7 +232,7 @@ namespace Курсова
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(271, 59);
+            this.textBox6.Location = new System.Drawing.Point(271, 33);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(22, 22);
             this.textBox6.TabIndex = 15;
@@ -231,7 +240,7 @@ namespace Курсова
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(214, 62);
+            this.label7.Location = new System.Drawing.Point(214, 36);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(57, 13);
             this.label7.TabIndex = 16;
@@ -272,7 +281,7 @@ namespace Курсова
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(686, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(809, 24);
             this.menuStrip1.TabIndex = 19;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -303,7 +312,7 @@ namespace Курсова
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showSecondSolveToolStripMenuItem,
+            this.showManyMethodsToolStripMenuItem,
             this.showChartToolStripMenuItem,
             this.allowCopyByClickToolStripMenuItem});
             this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -311,13 +320,13 @@ namespace Курсова
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
             this.settingsToolStripMenuItem.Text = "Налаштування";
             // 
-            // showSecondSolveToolStripMenuItem
+            // showManyMethodsToolStripMenuItem
             // 
-            this.showSecondSolveToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
-            this.showSecondSolveToolStripMenuItem.Name = "showSecondSolveToolStripMenuItem";
-            this.showSecondSolveToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
-            this.showSecondSolveToolStripMenuItem.Text = "Показати друге рішення";
-            this.showSecondSolveToolStripMenuItem.Click += new System.EventHandler(this.showSecondSolveToolStripMenuItem_Click);
+            this.showManyMethodsToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.showManyMethodsToolStripMenuItem.Name = "showManyMethodsToolStripMenuItem";
+            this.showManyMethodsToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.showManyMethodsToolStripMenuItem.Text = "Відобразити декілька методів";
+            this.showManyMethodsToolStripMenuItem.Click += new System.EventHandler(this.showManyMethodsToolStripMenuItem_Click);
             // 
             // showChartToolStripMenuItem
             // 
@@ -326,7 +335,7 @@ namespace Курсова
             this.showChartToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.floatableChartToolStripMenuItem});
             this.showChartToolStripMenuItem.Name = "showChartToolStripMenuItem";
-            this.showChartToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.showChartToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.showChartToolStripMenuItem.Text = "Показати графік";
             this.showChartToolStripMenuItem.Click += new System.EventHandler(this.showChartToolStripMenuItem_Click);
             // 
@@ -341,7 +350,7 @@ namespace Курсова
             // allowCopyByClickToolStripMenuItem
             // 
             this.allowCopyByClickToolStripMenuItem.Name = "allowCopyByClickToolStripMenuItem";
-            this.allowCopyByClickToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.allowCopyByClickToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
             this.allowCopyByClickToolStripMenuItem.Text = "Копіювання натисканням";
             this.allowCopyByClickToolStripMenuItem.Click += new System.EventHandler(this.allowCopyByClickToolStripMenuItem_Click);
             // 
@@ -382,7 +391,7 @@ namespace Курсова
             this.panel1.Controls.Add(this.listBox1);
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(368, 24);
+            this.panel1.Location = new System.Drawing.Point(332, 24);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(159, 366);
             this.panel1.TabIndex = 21;
@@ -402,7 +411,7 @@ namespace Курсова
             this.showSecondSolveToolStripContextMenuItem.Name = "showSecondSolveToolStripContextMenuItem";
             this.showSecondSolveToolStripContextMenuItem.Size = new System.Drawing.Size(232, 22);
             this.showSecondSolveToolStripContextMenuItem.Text = "Відобразити друге рішення";
-            this.showSecondSolveToolStripContextMenuItem.Click += new System.EventHandler(this.showSecondSolveToolStripMenuItem_Click);
+            this.showSecondSolveToolStripContextMenuItem.Click += new System.EventHandler(this.showManyMethodsToolStripMenuItem_Click);
             // 
             // exportListToolStripContextMenuItem
             // 
@@ -443,7 +452,7 @@ namespace Курсова
             this.panel2.Controls.Add(this.comboBox2);
             this.panel2.Controls.Add(this.listBox2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel2.Location = new System.Drawing.Point(527, 24);
+            this.panel2.Location = new System.Drawing.Point(491, 24);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(159, 366);
             this.panel2.TabIndex = 19;
@@ -463,7 +472,7 @@ namespace Курсова
             this.showSecondSolveToolStripContextMenuItem1.Name = "showSecondSolveToolStripContextMenuItem1";
             this.showSecondSolveToolStripContextMenuItem1.Size = new System.Drawing.Size(232, 22);
             this.showSecondSolveToolStripContextMenuItem1.Text = "Відобразити друге рішення";
-            this.showSecondSolveToolStripContextMenuItem1.Click += new System.EventHandler(this.showSecondSolveToolStripMenuItem_Click);
+            this.showSecondSolveToolStripContextMenuItem1.Click += new System.EventHandler(this.showManyMethodsToolStripMenuItem_Click);
             // 
             // exportListToolStripContextMenuItem1
             // 
@@ -488,9 +497,6 @@ namespace Курсова
             // 
             // chart1
             // 
-            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             chartArea2.AxisX.IsMarginVisible = false;
             chartArea2.AxisX.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
             chartArea2.AxisX2.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
@@ -502,33 +508,41 @@ namespace Курсова
             this.chart1.ChartAreas.Add(chartArea2);
             this.chart1.ContextMenuStrip = this.chartContextMenuStrip1;
             this.chart1.Cursor = System.Windows.Forms.Cursors.Cross;
-            legend2.AutoFitMinFontSize = 5;
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend2.BorderWidth = 0;
             legend2.Enabled = false;
+            legend2.IsDockedInsideChartArea = false;
             legend2.Name = "Legend1";
             legend2.Position.Auto = false;
-            legend2.Position.Height = 16.10169F;
+            legend2.Position.Height = 21.10169F;
             legend2.Position.Width = 36.38969F;
             legend2.Position.X = 60.61031F;
             legend2.Position.Y = 3F;
             this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Color = System.Drawing.Color.Blue;
-            series3.Legend = "Legend1";
-            series3.LegendText = "Перший метод";
-            series3.Name = "Series1";
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series4.Color = System.Drawing.Color.Red;
-            series4.IsVisibleInLegend = false;
+            series4.Color = System.Drawing.Color.Blue;
             series4.Legend = "Legend1";
-            series4.LegendText = "Другий метод";
-            series4.Name = "Series2";
-            this.chart1.Series.Add(series3);
+            series4.LegendText = "Перший метод";
+            series4.Name = "Series1";
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Color = System.Drawing.Color.Red;
+            series5.IsVisibleInLegend = false;
+            series5.Legend = "Legend1";
+            series5.LegendText = "Другий метод";
+            series5.Name = "Series2";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series6.IsVisibleInLegend = false;
+            series6.Legend = "Legend1";
+            series6.Name = "Series3";
             this.chart1.Series.Add(series4);
-            this.chart1.Size = new System.Drawing.Size(350, 240);
+            this.chart1.Series.Add(series5);
+            this.chart1.Series.Add(series6);
+            this.chart1.Size = new System.Drawing.Size(314, 240);
             this.chart1.TabIndex = 5;
             this.chart1.Text = "chart1";
             this.chart1.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.chart1_AxisViewChanged);
@@ -569,54 +583,98 @@ namespace Курсова
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button2.Location = new System.Drawing.Point(0, 213);
+            this.button2.Location = new System.Drawing.Point(0, 210);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(27, 27);
             this.button2.TabIndex = 24;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // panelChart
+            // 
+            this.panelChart.Controls.Add(this.button2);
+            this.panelChart.Controls.Add(this.chart1);
+            this.panelChart.Location = new System.Drawing.Point(12, 141);
+            this.panelChart.Name = "panelChart";
+            this.panelChart.Size = new System.Drawing.Size(314, 240);
+            this.panelChart.TabIndex = 25;
+            // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panel3.ContextMenuStrip = this.listContextMenuStrip1;
+            this.panel3.Controls.Add(this.comboBox3);
+            this.panel3.Controls.Add(this.listBox3);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel3.Location = new System.Drawing.Point(650, 24);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(159, 366);
+            this.panel3.TabIndex = 26;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "Ейлера",
+            "Рунге-Кута",
+            "Адамса-Бешфорта"});
+            this.comboBox3.Location = new System.Drawing.Point(3, 0);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(151, 21);
+            this.comboBox3.TabIndex = 18;
+            // 
+            // listBox3
+            // 
+            this.listBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel3.Controls.Add(this.button2);
-            this.panel3.Controls.Add(this.chart1);
-            this.panel3.Location = new System.Drawing.Point(12, 141);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(350, 249);
-            this.panel3.TabIndex = 25;
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.Location = new System.Drawing.Point(0, 25);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(156, 303);
+            this.listBox3.TabIndex = 17;
+            this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
+            // 
+            // panelConditions
+            // 
+            this.panelConditions.Controls.Add(this.textBox1);
+            this.panelConditions.Controls.Add(this.button1);
+            this.panelConditions.Controls.Add(this.textBox2);
+            this.panelConditions.Controls.Add(this.textBox3);
+            this.panelConditions.Controls.Add(this.textBox5);
+            this.panelConditions.Controls.Add(this.textBox4);
+            this.panelConditions.Controls.Add(this.label1);
+            this.panelConditions.Controls.Add(this.label7);
+            this.panelConditions.Controls.Add(this.label2);
+            this.panelConditions.Controls.Add(this.textBox6);
+            this.panelConditions.Controls.Add(this.label3);
+            this.panelConditions.Controls.Add(this.label6);
+            this.panelConditions.Controls.Add(this.label4);
+            this.panelConditions.Controls.Add(this.label5);
+            this.panelConditions.Location = new System.Drawing.Point(0, 27);
+            this.panelConditions.Name = "panelConditions";
+            this.panelConditions.Size = new System.Drawing.Size(326, 111);
+            this.panelConditions.TabIndex = 27;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 390);
-            this.Controls.Add(this.panel3);
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(809, 390);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panelChart);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.panelConditions);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Чисельне рішення диференціальних рівнянь";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -625,7 +683,10 @@ namespace Курсова
             this.listContextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.chartContextMenuStrip1.ResumeLayout(false);
+            this.panelChart.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panelConditions.ResumeLayout(false);
+            this.panelConditions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -655,7 +716,7 @@ namespace Курсова
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ToolStripMenuItem showSecondSolveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showManyMethodsToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ContextMenuStrip listContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem showSecondSolveToolStripContextMenuItem;
@@ -670,7 +731,7 @@ namespace Курсова
         private System.Windows.Forms.ToolStripMenuItem aboutProgramToolStripMenuItem;
         public System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        public System.Windows.Forms.Panel panel3;
+        public System.Windows.Forms.Panel panelChart;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportChartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportListToolStripMenuItem;
@@ -685,6 +746,10 @@ namespace Курсова
         private System.Windows.Forms.ToolStripMenuItem copyAllPointsToolStripContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyAllPointsToolStripContextMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem allowCopyByClickToolStripMenuItem;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ListBox listBox3;
+        private System.Windows.Forms.Panel panelConditions;
     }
 }
 

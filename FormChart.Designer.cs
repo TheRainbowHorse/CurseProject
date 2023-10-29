@@ -33,6 +33,7 @@ namespace Курсова
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormChart));
             this.chartF1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button2 = new System.Windows.Forms.Button();
@@ -87,8 +88,14 @@ namespace Курсова
             series2.Legend = "Legend1";
             series2.LegendText = "Другий метод";
             series2.Name = "Series2";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.IsVisibleInLegend = false;
+            series3.Legend = "Legend1";
+            series3.Name = "Series3";
             this.chartF1.Series.Add(series1);
             this.chartF1.Series.Add(series2);
+            this.chartF1.Series.Add(series3);
             this.chartF1.Size = new System.Drawing.Size(350, 237);
             this.chartF1.TabIndex = 6;
             this.chartF1.Text = "chart1";
