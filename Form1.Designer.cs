@@ -30,11 +30,11 @@ namespace Курсова
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -58,25 +58,26 @@ namespace Курсова
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showManyMethodsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.floatableChartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.allowCopyByClickToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpF1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.listContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.showSecondSolveToolStripContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showManyMethodsToolStripContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportListToolStripContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyPointToolStripContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyAllPointsToolStripContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.button3 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.listContextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.showSecondSolveToolStripContextMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.showManyMethodsToolStripContextMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportListToolStripContextMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyPointToolStripContextMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyAllPointsToolStripContextMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -276,7 +277,7 @@ namespace Курсова
             this.menuStrip1.BackColor = System.Drawing.SystemColors.ControlLight;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.settingsToolStripMenuItem,
+            this.optionsToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -309,16 +310,17 @@ namespace Курсова
             this.exportListToolStripMenuItem.Text = "Експортувати точки";
             this.exportListToolStripMenuItem.Click += new System.EventHandler(this.exportListToolStripMenuItem_Click);
             // 
-            // settingsToolStripMenuItem
+            // optionsToolStripMenuItem
             // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showManyMethodsToolStripMenuItem,
             this.showChartToolStripMenuItem,
-            this.allowCopyByClickToolStripMenuItem});
-            this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(102, 20);
-            this.settingsToolStripMenuItem.Text = "Налаштування";
+            this.toolStripSeparator2,
+            this.settingsToolStripMenuItem});
+            this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
+            this.optionsToolStripMenuItem.Text = "Параметри";
             // 
             // showManyMethodsToolStripMenuItem
             // 
@@ -347,12 +349,17 @@ namespace Курсова
             this.floatableChartToolStripMenuItem.Text = "Плаваючий графік";
             this.floatableChartToolStripMenuItem.Click += new System.EventHandler(this.floatableChartToolStripMenuItem_Click);
             // 
-            // allowCopyByClickToolStripMenuItem
+            // toolStripSeparator2
             // 
-            this.allowCopyByClickToolStripMenuItem.Name = "allowCopyByClickToolStripMenuItem";
-            this.allowCopyByClickToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
-            this.allowCopyByClickToolStripMenuItem.Text = "Копіювання натисканням";
-            this.allowCopyByClickToolStripMenuItem.Click += new System.EventHandler(this.allowCopyByClickToolStripMenuItem_Click);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(245, 6);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.settingsToolStripMenuItem.Text = "Налаштування";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -399,38 +406,38 @@ namespace Курсова
             // listContextMenuStrip
             // 
             this.listContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showSecondSolveToolStripContextMenuItem,
+            this.showManyMethodsToolStripContextMenuItem,
             this.exportListToolStripContextMenuItem,
             this.copyPointToolStripContextMenuItem,
             this.copyAllPointsToolStripContextMenuItem});
             this.listContextMenuStrip.Name = "twoMethodsSolvingMenuStrip";
-            this.listContextMenuStrip.Size = new System.Drawing.Size(233, 92);
+            this.listContextMenuStrip.Size = new System.Drawing.Size(249, 92);
             // 
-            // showSecondSolveToolStripContextMenuItem
+            // showManyMethodsToolStripContextMenuItem
             // 
-            this.showSecondSolveToolStripContextMenuItem.Name = "showSecondSolveToolStripContextMenuItem";
-            this.showSecondSolveToolStripContextMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.showSecondSolveToolStripContextMenuItem.Text = "Відобразити друге рішення";
-            this.showSecondSolveToolStripContextMenuItem.Click += new System.EventHandler(this.showManyMethodsToolStripMenuItem_Click);
+            this.showManyMethodsToolStripContextMenuItem.Name = "showManyMethodsToolStripContextMenuItem";
+            this.showManyMethodsToolStripContextMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.showManyMethodsToolStripContextMenuItem.Text = "Відобразити декілька методів";
+            this.showManyMethodsToolStripContextMenuItem.Click += new System.EventHandler(this.showManyMethodsToolStripMenuItem_Click);
             // 
             // exportListToolStripContextMenuItem
             // 
             this.exportListToolStripContextMenuItem.Name = "exportListToolStripContextMenuItem";
-            this.exportListToolStripContextMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.exportListToolStripContextMenuItem.Size = new System.Drawing.Size(248, 22);
             this.exportListToolStripContextMenuItem.Text = "Експортувати точки";
             this.exportListToolStripContextMenuItem.Click += new System.EventHandler(this.exportListToolStripMenuItem_Click);
             // 
             // copyPointToolStripContextMenuItem
             // 
             this.copyPointToolStripContextMenuItem.Name = "copyPointToolStripContextMenuItem";
-            this.copyPointToolStripContextMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.copyPointToolStripContextMenuItem.Size = new System.Drawing.Size(248, 22);
             this.copyPointToolStripContextMenuItem.Text = "Копіювати";
             this.copyPointToolStripContextMenuItem.Click += new System.EventHandler(this.copyPointToolStripContextMenuItem_Click);
             // 
             // copyAllPointsToolStripContextMenuItem
             // 
             this.copyAllPointsToolStripContextMenuItem.Name = "copyAllPointsToolStripContextMenuItem";
-            this.copyAllPointsToolStripContextMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.copyAllPointsToolStripContextMenuItem.Size = new System.Drawing.Size(248, 22);
             this.copyAllPointsToolStripContextMenuItem.Text = "Копіювати все";
             this.copyAllPointsToolStripContextMenuItem.Click += new System.EventHandler(this.copyAllPointsToolStripContextMenuItem_Click);
             // 
@@ -442,7 +449,7 @@ namespace Курсова
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(150, 23);
             this.button3.TabIndex = 5;
-            this.button3.Text = "Зупинити розрахунок";
+            this.button3.Text = "Прервати розрахунок";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -460,92 +467,93 @@ namespace Курсова
             // listContextMenuStrip1
             // 
             this.listContextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showSecondSolveToolStripContextMenuItem1,
+            this.showManyMethodsToolStripContextMenuItem1,
             this.exportListToolStripContextMenuItem1,
             this.copyPointToolStripContextMenuItem1,
             this.copyAllPointsToolStripContextMenuItem1});
             this.listContextMenuStrip1.Name = "twoMethodsSolvingMenuStrip";
-            this.listContextMenuStrip1.Size = new System.Drawing.Size(233, 92);
+            this.listContextMenuStrip1.Size = new System.Drawing.Size(249, 92);
             // 
-            // showSecondSolveToolStripContextMenuItem1
+            // showManyMethodsToolStripContextMenuItem1
             // 
-            this.showSecondSolveToolStripContextMenuItem1.Name = "showSecondSolveToolStripContextMenuItem1";
-            this.showSecondSolveToolStripContextMenuItem1.Size = new System.Drawing.Size(232, 22);
-            this.showSecondSolveToolStripContextMenuItem1.Text = "Відобразити друге рішення";
-            this.showSecondSolveToolStripContextMenuItem1.Click += new System.EventHandler(this.showManyMethodsToolStripMenuItem_Click);
+            this.showManyMethodsToolStripContextMenuItem1.Name = "showManyMethodsToolStripContextMenuItem1";
+            this.showManyMethodsToolStripContextMenuItem1.Size = new System.Drawing.Size(248, 22);
+            this.showManyMethodsToolStripContextMenuItem1.Text = "Відобразити декілька методів";
+            this.showManyMethodsToolStripContextMenuItem1.Click += new System.EventHandler(this.showManyMethodsToolStripMenuItem_Click);
             // 
             // exportListToolStripContextMenuItem1
             // 
             this.exportListToolStripContextMenuItem1.Name = "exportListToolStripContextMenuItem1";
-            this.exportListToolStripContextMenuItem1.Size = new System.Drawing.Size(232, 22);
+            this.exportListToolStripContextMenuItem1.Size = new System.Drawing.Size(248, 22);
             this.exportListToolStripContextMenuItem1.Text = "Експортувати точки";
             this.exportListToolStripContextMenuItem1.Click += new System.EventHandler(this.exportListToolStripMenuItem_Click);
             // 
             // copyPointToolStripContextMenuItem1
             // 
             this.copyPointToolStripContextMenuItem1.Name = "copyPointToolStripContextMenuItem1";
-            this.copyPointToolStripContextMenuItem1.Size = new System.Drawing.Size(232, 22);
+            this.copyPointToolStripContextMenuItem1.Size = new System.Drawing.Size(248, 22);
             this.copyPointToolStripContextMenuItem1.Text = "Копіювати";
             this.copyPointToolStripContextMenuItem1.Click += new System.EventHandler(this.copyPointToolStripContextMenuItem1_Click);
             // 
             // copyAllPointsToolStripContextMenuItem1
             // 
             this.copyAllPointsToolStripContextMenuItem1.Name = "copyAllPointsToolStripContextMenuItem1";
-            this.copyAllPointsToolStripContextMenuItem1.Size = new System.Drawing.Size(232, 22);
+            this.copyAllPointsToolStripContextMenuItem1.Size = new System.Drawing.Size(248, 22);
             this.copyAllPointsToolStripContextMenuItem1.Text = "Копіювати все";
             this.copyAllPointsToolStripContextMenuItem1.Click += new System.EventHandler(this.copyAllPointsToolStripContextMenuItem1_Click);
             // 
             // chart1
             // 
-            chartArea2.AxisX.IsMarginVisible = false;
-            chartArea2.AxisX.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
-            chartArea2.AxisX2.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
-            chartArea2.AxisY.LabelStyle.Format = "0.000";
-            chartArea2.AxisY.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
-            chartArea2.AxisY2.LabelStyle.Format = "0.000";
-            chartArea2.AxisY2.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
+            chartArea1.AxisX.IsMarginVisible = false;
+            chartArea1.AxisX.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
+            chartArea1.AxisX2.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
+            chartArea1.AxisY.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
+            chartArea1.AxisY2.LabelStyle.Format = "0.000";
+            chartArea1.AxisY2.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.ContextMenuStrip = this.chartContextMenuStrip1;
             this.chart1.Cursor = System.Windows.Forms.Cursors.Cross;
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.BorderWidth = 0;
-            legend2.Enabled = false;
-            legend2.IsDockedInsideChartArea = false;
-            legend2.Name = "Legend1";
-            legend2.Position.Auto = false;
-            legend2.Position.Height = 21.10169F;
-            legend2.Position.Width = 36.38969F;
-            legend2.Position.X = 60.61031F;
-            legend2.Position.Y = 3F;
-            this.chart1.Legends.Add(legend2);
+            legend1.BorderWidth = 0;
+            legend1.Enabled = false;
+            legend1.IsDockedInsideChartArea = false;
+            legend1.Name = "Legend1";
+            legend1.Position.Auto = false;
+            legend1.Position.Height = 21.10169F;
+            legend1.Position.Width = 36.38969F;
+            legend1.Position.X = 60.61031F;
+            legend1.Position.Y = 3F;
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(0, 0);
             this.chart1.Name = "chart1";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series4.Color = System.Drawing.Color.Blue;
-            series4.Legend = "Legend1";
-            series4.LegendText = "Перший метод";
-            series4.Name = "Series1";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series5.Color = System.Drawing.Color.Red;
-            series5.IsVisibleInLegend = false;
-            series5.Legend = "Legend1";
-            series5.LegendText = "Другий метод";
-            series5.Name = "Series2";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series6.IsVisibleInLegend = false;
-            series6.Legend = "Legend1";
-            series6.Name = "Series3";
-            this.chart1.Series.Add(series4);
-            this.chart1.Series.Add(series5);
-            this.chart1.Series.Add(series6);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Color = System.Drawing.Color.Blue;
+            series1.Legend = "Legend1";
+            series1.LegendText = "Перший метод";
+            series1.Name = "Series1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Color = System.Drawing.Color.Red;
+            series2.IsVisibleInLegend = false;
+            series2.Legend = "Legend1";
+            series2.LegendText = "Другий метод";
+            series2.Name = "Series2";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.IsVisibleInLegend = false;
+            series3.Legend = "Legend1";
+            series3.LegendText = "Третій метод";
+            series3.Name = "Series3";
+            this.chart1.Series.Add(series1);
+            this.chart1.Series.Add(series2);
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(314, 240);
             this.chart1.TabIndex = 5;
             this.chart1.Text = "chart1";
             this.chart1.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.chart1_AxisViewChanged);
+            this.chart1.MouseLeave += new System.EventHandler(this.chart1_MouseLeave);
             this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
             // chartContextMenuStrip1
@@ -713,13 +721,13 @@ namespace Курсова
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStripMenuItem showManyMethodsToolStripMenuItem;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ContextMenuStrip listContextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem showSecondSolveToolStripContextMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showManyMethodsToolStripContextMenuItem;
         public System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         public System.Windows.Forms.ToolStripMenuItem floatableChartToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem showChartToolStripMenuItem;
@@ -740,16 +748,17 @@ namespace Курсова
         private System.Windows.Forms.ToolStripMenuItem exportListToolStripContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyPointToolStripContextMenuItem;
         private System.Windows.Forms.ContextMenuStrip listContextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem showSecondSolveToolStripContextMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem showManyMethodsToolStripContextMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exportListToolStripContextMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem copyPointToolStripContextMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem copyAllPointsToolStripContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyAllPointsToolStripContextMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem allowCopyByClickToolStripMenuItem;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.Panel panelConditions;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

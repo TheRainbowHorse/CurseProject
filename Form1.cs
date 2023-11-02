@@ -18,15 +18,21 @@ namespace Курсова
         bool stopFlag = false;
         public int countOfMethods = 1;
         List<List<double[]>> points = new List<List<double[]>>();
+        MySettings settings = new MySettings();
+
+        bool limitReachedExeption = false;
 
         private Conditions conditions;
         public Form1()
         {
             InitializeComponent();
+            settings.init(this);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            settings.apply();
+
             this.Width = 666;
             panel1.Width = 159 * 2;
             panelChart.Width = this.Width - panel1.Width - 12 - 20;
@@ -63,13 +69,10 @@ namespace Курсова
 
             chart1.ChartAreas[0].CursorX.LineColor = Color.Black;
             chart1.ChartAreas[0].CursorX.LineWidth = 1;
-            chart1.ChartAreas[0].CursorX.LineDashStyle = ChartDashStyle.Dot;
             chart1.ChartAreas[0].CursorY.LineColor = Color.Black;
             chart1.ChartAreas[0].CursorY.LineWidth = 1;
-            chart1.ChartAreas[0].CursorY.LineDashStyle = ChartDashStyle.Dot;
 
             saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.InitialDirectory = Path.GetFullPath("./Export");
         }
 
         private class Conditions
@@ -77,9 +80,8 @@ namespace Курсова
             public string equation;
             public double xmin, xmax, y0, x0, h;
             public int methodNumber;
-            public bool onlyChart;
 
-            public Conditions(string equation, double x0, double y0, double xmin, double xmax, double h, int methodNumber, bool onlyChart = false)
+            public Conditions(string equation, double x0, double y0, double xmin, double xmax, double h, int methodNumber)
             {
                 this.equation = equation;
                 this.xmin = xmin;
@@ -88,7 +90,38 @@ namespace Курсова
                 this.x0 = x0;
                 this.h = h;
                 this.methodNumber = methodNumber;
-                this.onlyChart = onlyChart;
+            }
+        }
+
+        public class MySettings
+        {
+            Form1 f;
+
+            public void init(Form1 form)
+            {
+                f = form;
+                if (Properties.Settings.Default.exportPath == "")
+                    Properties.Settings.Default.exportPath = Path.GetFullPath("./Export");
+            }
+            public void apply()
+            {
+                f.allowCopyByClick();
+
+                f.saveFileDialog1.InitialDirectory = Path.GetFullPath(Properties.Settings.Default.exportPath);
+
+                if (Properties.Settings.Default.showMarker)
+                    foreach (var series in f.chart1.Series)
+                        series.MarkerStyle = MarkerStyle.Circle;
+                else
+                    foreach (var series in f.chart1.Series)
+                        series.MarkerStyle = MarkerStyle.None;
+
+                f.chart1.ChartAreas[0].AxisY.LabelStyle.Format = "0.";
+                for (int i = 0; i < Properties.Settings.Default.decimalPlacesChartY; i++)
+                    f.chart1.ChartAreas[0].AxisY.LabelStyle.Format = f.chart1.ChartAreas[0].AxisY.LabelStyle.Format + "0";
+
+                if (f.chart1.Series[0].Points.Count != 0)
+                    f.chart1.Legends[0].Enabled = !Properties.Settings.Default.hideLegend;
             }
         }
 
@@ -132,7 +165,7 @@ namespace Курсова
             chart1.Series[0].Points.Clear();
             chart1.Series[1].Points.Clear();
             chart1.Series[2].Points.Clear();
-            chart1.Legends[0].Enabled = true;
+            chart1.Legends[0].Enabled = !Properties.Settings.Default.hideLegend;
             chart1.Series[0].IsVisibleInLegend = true;
             chart1.ChartAreas[0].CursorX.IsUserEnabled = true;
             chart1.ChartAreas[0].CursorX.IsUserSelectionEnabled = true;
@@ -208,100 +241,6 @@ namespace Курсова
                 Thread thread = new Thread(pThread);
                 thread.Start(conditions);
             }
-            /*switch (comboBox1.SelectedIndex)
-                {
-                case 0:
-                    chart1.Series[0].LegendText = "Ейлера";
-                    foreach (Form f in Application.OpenForms)
-                        if (f.Name == "FormChart")
-                        {
-                            FormChart fc = (FormChart)f;
-                            fc.chartF1.Series[0].LegendText = "Ейлера";
-                        }
-                    conditions = new Conditions(equation, x0, y0, xmin, xmax, h, 1);
-                    ParameterizedThreadStart pThread = new ParameterizedThreadStart(euler);
-                    Thread thread = new Thread(pThread);
-                    thread.Start(conditions);
-
-                    break;
-                case 1:
-                    chart1.Series[0].LegendText = "Рунге-Кута";
-                    foreach (Form f in Application.OpenForms)
-                        if (f.Name == "FormChart")
-                        {
-                            FormChart fc = (FormChart)f;
-                            fc.chartF1.Series[0].LegendText = "Рунге-Кута";
-                        }
-                    conditions = new Conditions(equation, x0, y0, xmin, xmax, h, 1);
-                    ParameterizedThreadStart pThreadRk = new ParameterizedThreadStart(rk);
-                    Thread threadRk = new Thread(pThreadRk);
-                    threadRk.Start(conditions);
-
-                    break;
-                case 2:
-                    chart1.Series[0].LegendText = "Адамса-Бешфорта";
-                    foreach (Form f in Application.OpenForms)
-                        if (f.Name == "FormChart")
-                        {
-                            FormChart fc = (FormChart)f;
-                            fc.chartF1.Series[0].LegendText = "Адамса-Бешфорта";
-                        }
-                    conditions = new Conditions(equation, x0, y0, xmin, xmax, h, 1);
-                    ParameterizedThreadStart pThreadAd = new ParameterizedThreadStart(adams);
-                    Thread ThreadAd = new Thread(pThreadAd);
-                    ThreadAd.Start(conditions);
-
-                    break;
-            }
-            if (showManyMethodsToolStripMenuItem.Checked)
-            {
-                finished--;
-                switch (comboBox2.SelectedIndex)
-                {
-                    case 0:
-                        chart1.Series[1].LegendText = "Ейлера";
-                        foreach (Form f in Application.OpenForms)
-                            if (f.Name == "FormChart")
-                            {
-                                FormChart fc = (FormChart)f;
-                                fc.chartF1.Series[1].LegendText = "Ейлера";
-                            }
-                        conditions = new Conditions(equation, x0, y0, xmin, xmax, h, 2);
-                        ParameterizedThreadStart pThread = new ParameterizedThreadStart(euler);
-                        Thread thread = new Thread(pThread);
-                        thread.Start(conditions);
-
-                        break;
-                    case 1:
-                        chart1.Series[1].LegendText = "Рунге-Кута";
-                        foreach (Form f in Application.OpenForms)
-                            if (f.Name == "FormChart")
-                            {
-                                FormChart fc = (FormChart)f;
-                                fc.chartF1.Series[1].LegendText = "Рунге-Кута";
-                            }
-                        conditions = new Conditions(equation, x0, y0, xmin, xmax, h, 2);
-                        ParameterizedThreadStart pThreadRk = new ParameterizedThreadStart(rk);
-                        Thread threadRk = new Thread(pThreadRk);
-                        threadRk.Start(conditions);
-
-                        break;
-                    case 2:
-                        chart1.Series[1].LegendText = "Адамса-Бешфорта";
-                        foreach (Form f in Application.OpenForms)
-                            if (f.Name == "FormChart")
-                            {
-                                FormChart fc = (FormChart)f;
-                                fc.chartF1.Series[1].LegendText = "Адамса-Бешфорта";
-                            }
-                        conditions = new Conditions(equation, x0, y0, xmin, xmax, h, 2);
-                        ParameterizedThreadStart pThreadAd = new ParameterizedThreadStart(adams);
-                        Thread ThreadAd = new Thread(pThreadAd);
-                        ThreadAd.Start(conditions);
-
-                        break;
-                }
-            }*/
         }
 
         string calculate(string equation)//When expression contains "()", "sin()", "sqrt()" etc.
@@ -344,6 +283,11 @@ namespace Курсова
                         else break;
                     }
 
+                    if (i == 0)
+                    {
+                        equation = equation.Replace('(' + toBeReplace + ')', calculate(toBeReplace));
+                        continue;
+                    }
                     string newBase = "";
                     for (int j = i - 1; j >= 0; j--)//l10( //r10(
                     {
@@ -395,7 +339,7 @@ namespace Курсова
                 }
             }
 
-            var dict = new Dictionary<char, List<int>>()
+            /*var dict = new Dictionary<char, List<int>>()
             {
                 { '^', new List<int>() },
                 { '*', new List<int>() },
@@ -436,8 +380,8 @@ namespace Курсова
             foreach (int i in dict['+'].Reverse<int>())
             {
                 equation = calculateSimple(equation, i);
-            }
-            /*for (int i = 0; i < equation.Length; i++)
+            }*/
+            for (int i = 0; i < equation.Length; i++)
             {
                 if (equation[i] == '^')
                 {
@@ -455,12 +399,12 @@ namespace Курсова
             }
             for (int i = 0; i < equation.Length; i++)
             {
-                if (!char.IsDigit(equation[i]) && equation[i] != ',' && i != 0 && equation[i - 1].ToString().ToLower() != "e" && equation[i].ToString().ToLower() != "e")
+                if (!char.IsDigit(equation[i]) && equation[i] != ',' && i != 0 && equation[i - 1].ToString().ToLower() != "e" && equation[i].ToString().ToLower() != "e" && equation[i + 1].ToString() != Convert.ToString(Double.NegativeInfinity))
                 {
                     equation = calculateSimple(equation, i);
                     i = 0;
                 }
-            }*/
+            }
 
             return equation;
         }
@@ -472,6 +416,11 @@ namespace Курсова
             string numLeftStr = "";
             string numRightStr = "";
             bool numRightIsNegative = false;
+
+            if (expression.Contains(Convert.ToString(Double.NegativeInfinity)))
+                return Convert.ToString(Double.NegativeInfinity);
+            else if (expression.Contains(Convert.ToString(Double.PositiveInfinity)))
+                return Convert.ToString(Double.PositiveInfinity);
 
             for (int i = operatorPos - 1; i >= 0; i--)//Finds left number around the symbol
             {
@@ -550,8 +499,9 @@ namespace Курсова
             return double.Parse(calculate(f.Replace("x", Convert.ToString(x)).Replace("y", Convert.ToString(y))));
         }
 
-        void euler(string f, double x0, double y0, double xmin, double xmax, double h, int methodNumber, bool onlyChart = false)
+        void euler(string f, double x0, double y0, double xmin, double xmax, double h, int methodNumber)
         {
+            List<double[]> points = new List<double[]>();
             ListBox listBox = listBox1;
             switch (methodNumber)
             {
@@ -559,15 +509,21 @@ namespace Курсова
                 case 2: listBox = listBox2; break;
                 case 3: listBox = listBox3; break;
             }
-            if (!onlyChart)
+            Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
+            listBox.Invoke(action0);
+            points.Add(new double[] { x0, y0 });
+            if (x0 < 1.0E+28 && y0 < 1.0E+28)
             {
-                Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
-                listBox.Invoke(action0);
-                action0 = () => points[methodNumber - 1].Add(new double[] { x0, y0 });
-                Invoke(action0);
+                Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
+                Invoke(actionP0);
             }
-            Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
-            Invoke(actionP0);
+            else
+                if (!limitReachedExeption)
+                {
+                    limitReachedExeption = true;
+                    MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
             int xminDC = GetDecimalDigitsCount(xmin);
             if (xminDC < GetDecimalDigitsCount(h))
@@ -577,8 +533,14 @@ namespace Курсова
                 xmaxDC = GetDecimalDigitsCount(h);
             try
             {
+                int i = 0;
+                double k = 0;
+                double pointsCount = (xmax - xmin) / h;
+                double newStep = pointsCount / (double)Properties.Settings.Default.maxPointsAtChart;
                 while (Round(xmin, xminDC) + h <= Round(xmax, xmaxDC))
                 {
+                    if (xmin > 17)
+                        ;
                     double df = der(f, x0, y0);
                     double dfn = der(f, x0 + h, df * h + y0);
                     double y = y0 + (df + dfn) * h / 2; //x*y+y^5-r3(x)
@@ -587,15 +549,36 @@ namespace Курсова
                     y0 = y;
                     xmin += h;
 
-                    if (!onlyChart)
+                    Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
+                    listBox.Invoke(action1);
+                    points.Add(new double[]{x0, y0});
+                    if (x0 < 1.0E+28 && y0 < 1.0E+28)
                     {
-                        Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
-                        listBox.Invoke(action1);
-                        action1 = () => points[methodNumber - 1].Add(new double[]{x0, y0});
-                        Invoke(action1);
+                        if (pointsCount > (double)Properties.Settings.Default.maxPointsAtChart)
+                        {
+                            i++;
+                            if (i > k || i == pointsCount)
+                            {
+                                k += newStep;
+                                Action actionP1 = () => addPointToChart(x0, y0, methodNumber);
+                                Invoke(actionP1);
+                            }
+                        }
+                        else
+                        {
+                            Action actionP1 = () => addPointToChart(x0, y0, methodNumber);
+                            Invoke(actionP1);
+                        }
                     }
-                    Action actionP1 = () => addPointToChart(Round(x0, GetDecimalDigitsCount(h)), y0, methodNumber);
-                    Invoke(actionP1);
+                    else
+                    {
+                        if (!limitReachedExeption)
+                        {
+                            limitReachedExeption = true;
+                            MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку", 
+                                "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
                     if (stopFlag) break;
                 }
             }
@@ -603,13 +586,15 @@ namespace Курсова
             {
                 MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            this.points[methodNumber - 1].AddRange(points);
             if (++finished == 2)
             {
                 Action actionB1 = () => button1.Enabled = true;
                 button1.Invoke(actionB1);
                 Action actionB3 = () => button3.Enabled = false;
-                button1.Invoke(actionB3);
+                button3.Invoke(actionB3);
 
+                limitReachedExeption = false;
                 stopFlag = false;
             }
         }
@@ -617,11 +602,12 @@ namespace Курсова
         {
             Conditions cond = obj as Conditions;
 
-            euler(cond.equation, cond.x0, cond.y0, cond.xmin, cond.xmax, cond.h, cond.methodNumber, cond.onlyChart);
+            euler(cond.equation, cond.x0, cond.y0, cond.xmin, cond.xmax, cond.h, cond.methodNumber);
         }
 
-        void rk(string f, double x0, double y0, double xmin, double xmax, double h, int methodNumber, bool onlyChart = false)
+        void rk(string f, double x0, double y0, double xmin, double xmax, double h, int methodNumber)
         {
+            List<double[]> points = new List<double[]>();
             ListBox listBox = listBox1;
             switch (methodNumber)
             {
@@ -629,15 +615,21 @@ namespace Курсова
                 case 2: listBox = listBox2; break;
                 case 3: listBox = listBox3; break;
             }
-            if (!onlyChart)
+            Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
+            listBox.Invoke(action0);
+            points.Add(new double[] { x0, y0 });
+            if (x0 < 1.0E+28 && y0 < 1.0E+28)
             {
-                Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
-                listBox.Invoke(action0);
-                action0 = () => points[methodNumber - 1].Add(new double[] { x0, y0 });
-                Invoke(action0);
+                Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
+                Invoke(actionP0);
             }
-            Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
-            Invoke(actionP0);
+            else
+                if (!limitReachedExeption)
+                {
+                    limitReachedExeption = true;
+                    MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             int xminDC = GetDecimalDigitsCount(xmin);
             if (xminDC < GetDecimalDigitsCount(h))
                 xminDC = GetDecimalDigitsCount(h);
@@ -646,6 +638,10 @@ namespace Курсова
                 xmaxDC = GetDecimalDigitsCount(h);
             try
             {
+                int i = 0;
+                double k = 0;
+                double pointsCount = (xmax - xmin) / h;
+                double newStep = pointsCount / (double)Properties.Settings.Default.maxPointsAtChart;
                 while (Round(xmin, xminDC) + h <= Round(xmax, xmaxDC))
                 {
                     double df = der(f, x0, y0);
@@ -658,15 +654,36 @@ namespace Курсова
                     y0 = y;
                     xmin += h;
 
-                    if (!onlyChart)
+                    Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
+                    listBox.Invoke(action1);
+                    points.Add(new double[] { x0, y0 });
+                    if (x0 < 1.0E+28 && y0 < 1.0E+28)
                     {
-                        Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
-                        listBox.Invoke(action1);
-                        action1 = () => points[methodNumber - 1].Add(new double[] { x0, y0 });
-                        Invoke(action1);
+                        if (pointsCount > (double)Properties.Settings.Default.maxPointsAtChart)
+                        {
+                            i++;
+                            if (i > k || i == pointsCount)
+                            {
+                                k += newStep;
+                                Action actionP1 = () => addPointToChart(x0, y0, methodNumber);
+                                Invoke(actionP1);
+                            }
+                        }
+                        else
+                        {
+                            Action actionP1 = () => addPointToChart(x0, y0, methodNumber);
+                            Invoke(actionP1);
+                        }
                     }
-                    Action actionP1 = () => addPointToChart(x0, y0, methodNumber);
-                    Invoke(actionP1);
+                    else
+                    {
+                        if (!limitReachedExeption)
+                        {
+                            limitReachedExeption = true;
+                            MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
+                                "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
                     if (stopFlag) break;
                 }
             }
@@ -674,17 +691,18 @@ namespace Курсова
             {
                 MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            this.points[methodNumber - 1].AddRange(points);
             if (++finished == 2)
             {
                 Action actionB1 = () => button1.Enabled = true;
                 button1.Invoke(actionB1);
                 Action actionB3 = () => button3.Enabled = false;
-                button1.Invoke(actionB3);
+                button3.Invoke(actionB3);
 
                 stopFlag = false;
             }
         }
-        (double, bool) rk(string f, double x0, double y0, double h, int methodNumber, bool onlyChart = false)
+        (double, bool) rk(string f, double x0, double y0, double h, int methodNumber)
         {
             double y = 0;
             bool error = false;
@@ -706,15 +724,20 @@ namespace Курсова
                     case 2: listBox = listBox2; break;
                     case 3: listBox = listBox3; break;
                 }
-                if (!onlyChart)
+                Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
+                listBox.Invoke(action1);
+                if (x0 < 1.0E+28 && y0 < 1.0E+28)
                 {
-                    Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
-                    listBox.Invoke(action1);
-                    action1 = () => points[methodNumber - 1].Add(new double[] { x0, y0 });
-                    Invoke(action1);
+                    Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
+                    Invoke(actionP0);
                 }
-                Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
-                Invoke(actionP0);
+                else
+                    if (!limitReachedExeption)
+                    {
+                        limitReachedExeption = true;
+                        MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
+                            "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
             }
             catch
             {
@@ -727,11 +750,12 @@ namespace Курсова
         {
             Conditions cond = obj as Conditions;
 
-            rk(cond.equation, cond.x0, cond.y0, cond.xmin, cond.xmax, cond.h, cond.methodNumber, cond.onlyChart);
+            rk(cond.equation, cond.x0, cond.y0, cond.xmin, cond.xmax, cond.h, cond.methodNumber);
         }
 
-        void adams(string f, double x0, double y0, double xmin, double xmax, double h, int methodNumber, bool onlyChart = false)
+        void adams(string f, double x0, double y0, double xmin, double xmax, double h, int methodNumber)
         {
+            List<double[]> points = new List<double[]>();
             ListBox listBox = listBox1;
             switch (methodNumber)
             {
@@ -739,15 +763,21 @@ namespace Курсова
                 case 2: listBox = listBox2; break;
                 case 3: listBox = listBox3; break;
             }
-            if (!onlyChart)
+            Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
+            listBox.Invoke(action0);
+            points.Add(new double[] { x0, y0 });
+            if (x0 < 1.0E+28 && y0 < 1.0E+28)
             {
-                Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, GetDecimalDigitsCount(h))) + "\t " + Round(y0, 9));
-                listBox.Invoke(action0);
-                action0 = () => points[methodNumber - 1].Add(new double[] { x0, y0 });
-                Invoke(action0);
+                Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
+                Invoke(actionP0);
             }
-            Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
-            Invoke(actionP0);
+            else
+                if (!limitReachedExeption)
+                {
+                    limitReachedExeption = true;
+                    MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             int xminDC = GetDecimalDigitsCount(xmin);
             if (xminDC < GetDecimalDigitsCount(h))
                 xminDC = GetDecimalDigitsCount(h);
@@ -756,7 +786,14 @@ namespace Курсова
                 xmaxDC = GetDecimalDigitsCount(h);
             try
             {
-                (double y1, bool error) = rk(f, x0, y0, h, methodNumber, onlyChart);
+
+                int i = 0;
+                double k = 0;
+                double pointsCount = (xmax - xmin) / h;
+                double newStep = pointsCount / (double)Properties.Settings.Default.maxPointsAtChart;
+
+                (double y1, bool error) = rk(f, x0, y0, h, methodNumber);
+                points.Add(new double[] { x0 + h, y1 });
                 xmin += h;
                 if (!error)
                     while (Round(xmin, xminDC) + h <= Round(xmax, xmaxDC))
@@ -772,15 +809,36 @@ namespace Курсова
                         y1 = y;
                         xmin += h;
 
-                        if (!onlyChart)
+                        Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x1, GetDecimalDigitsCount(h))) + "\t " + Round(y1, 9));
+                        listBox.Invoke(action1);
+                        points.Add(new double[] { x1, y1 });
+                        if (x1 < 1.0E+28 && y1 < 1.0E+28)
                         {
-                            Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x1, GetDecimalDigitsCount(h))) + "\t " + Round(y1, 9));
-                            listBox.Invoke(action1);
-                            action1 = () => points[methodNumber - 1].Add(new double[] { x1, y1 });
-                            Invoke(action1);
+                            if (pointsCount > (double)Properties.Settings.Default.maxPointsAtChart)
+                            {
+                                i++;
+                                if (i > k || i == pointsCount)
+                                {
+                                    k += newStep;
+                                    Action actionP1 = () => addPointToChart(x1, y1, methodNumber);
+                                    Invoke(actionP1);
+                                }
+                            }
+                            else
+                            {
+                                Action actionP1 = () => addPointToChart(x1, y1, methodNumber);
+                                Invoke(actionP1);
+                            }
                         }
-                        Action actionP1 = () => addPointToChart(x1, y1, methodNumber);
-                        Invoke(actionP1);
+                        else
+                        {
+                            if (!limitReachedExeption)
+                            {
+                                limitReachedExeption = true;
+                                MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
+                                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
                         if (stopFlag) break;
                     }
             }
@@ -788,12 +846,13 @@ namespace Курсова
             {
                 MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            this.points[methodNumber - 1].AddRange(points);
             if (++finished == 2)
             {
                 Action actionB1 = () => button1.Enabled = true;
                 button1.Invoke(actionB1);
                 Action actionB3 = () => button3.Enabled = false;
-                button1.Invoke(actionB3);
+                button3.Invoke(actionB3);
 
                 stopFlag = false;
             }
@@ -802,7 +861,7 @@ namespace Курсова
         {
             Conditions cond = obj as Conditions;
 
-            adams(cond.equation, cond.x0, cond.y0, cond.xmin, cond.xmax, cond.h, cond.methodNumber, cond.onlyChart);
+            adams(cond.equation, cond.x0, cond.y0, cond.xmin, cond.xmax, cond.h, cond.methodNumber);
         }
 
         static int GetDecimalDigitsCount(double number)
@@ -897,7 +956,7 @@ namespace Курсова
             try
             {
                 listBox1.SelectedIndex = listBox3.SelectedIndex;
-                listBox3.SelectedIndex = listBox3.SelectedIndex;
+                listBox2.SelectedIndex = listBox3.SelectedIndex;
             }
             catch { }
         }
@@ -909,12 +968,10 @@ namespace Курсова
                 floatableChartToolStripMenuItem.Enabled = false;
                 showChartToolStripMenuItem.Checked = false;
                 panelChart.Visible = false;
-                bool isFormChartExist = false;
                 Form fc = null;
                 foreach (Form f in Application.OpenForms)
                     if (f.Name == "FormChart")
                     {
-                        isFormChartExist = true;
                         fc = f;
                     }
                 if (fc != null) fc.Close();
@@ -933,12 +990,10 @@ namespace Курсова
         {
             if (floatableChartToolStripMenuItem.Checked)
             {
-                bool isFormChartExist = false;
                 Form fc = null;
                 foreach (Form f in Application.OpenForms)
                     if (f.Name == "FormChart")
                     {
-                        isFormChartExist = true;
                         fc = f;
                     }
                 if (fc != null) fc.Close(); //floatableChartToolStripMenuItem.Checked and hideFloatableChartToolStripMenuItem.Checked = false
@@ -1014,10 +1069,18 @@ namespace Курсова
         {
             if (finished == 2)
             {
+                chart1.ChartAreas[0].CursorX.LineDashStyle = ChartDashStyle.Dot;
+                chart1.ChartAreas[0].CursorY.LineDashStyle = ChartDashStyle.Dot;
                 Point mousePoint = new Point(e.X, e.Y);
                 chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
                 chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
             }
+        }
+
+        private void chart1_MouseLeave(object sender, EventArgs e)
+        {
+            chart1.ChartAreas[0].CursorX.LineDashStyle = ChartDashStyle.NotSet;
+            chart1.ChartAreas[0].CursorY.LineDashStyle = ChartDashStyle.NotSet;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1044,7 +1107,7 @@ namespace Курсова
 
         private void exportChartToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.FileName = "chart";
+            saveFileDialog1.FileName = Properties.Settings.Default.chartFileName;
             saveFileDialog1.Filter = "JPEG |*.jpeg|PNG |*.png|Точковий малюнок |*.bmp|TIFF |*.tiff|GIF |*.gif";
             if (finished == 2)
                 try
@@ -1061,7 +1124,7 @@ namespace Курсова
 
         private void exportListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.FileName = "points";
+            saveFileDialog1.FileName = Properties.Settings.Default.pointsFileName;
             saveFileDialog1.Filter = "Книга Excel |*.xlsx|Книга Excel з підтримкою макросів |*.xlsm|Шаблон Excel |*.xltx|Шаблон Excel з підтримкою макросів |*.xltm|Текстовий файл |*.txt";
             if (finished == 2)
                 try
@@ -1070,22 +1133,6 @@ namespace Курсова
                     {
                         if (saveFileDialog1.FilterIndex == 5)
                         {
-                            /*var sw = new StreamWriter(saveFileDialog1.FileName);
-                            sw.WriteLine("Методом " + comboBox1.Text);
-                            for (int i = 0; i < listBox1.Items.Count; i++)
-                            {
-                                sw.WriteLine(listBox1.Items[i].ToString());
-                            }
-                            if (showSecondSolveToolStripMenuItem.Checked)
-                            {
-                                sw.WriteLine("Методом " + comboBox2.Text);
-                                for (int i = 0; i < listBox2.Items.Count; i++)
-                                {
-                                    sw.WriteLine(listBox2.Items[i].ToString());
-                                }
-                            }
-                            sw.Close();*/
-
                             var sw = new StreamWriter(saveFileDialog1.FileName);
                             int j = 0; // Number of method
                             sw.WriteLine("Методом " + comboBox1.Text);
@@ -1108,25 +1155,12 @@ namespace Курсова
                                             break;
                                     }
                                 }
-                                sw.WriteLine(points[j][i][0] + "\t" + points[j][i][1]); //n+n
+                                sw.WriteLine(points[j][i][0] + "\t" + points[j][i][1]);
                             }
                             sw.Close();
                         }
                         else
                         {
-                            /*var workbook = new XLWorkbook();
-                            var sheet = workbook.Worksheets.Add("Результат рішення Диф.рівнянь");
-
-                            sheet.Cell(1, 1).SetValue("Методом " + comboBox1.Text);
-                            for (int i = 0; i < listBox1.Items.Count; i++)
-                            {
-                                string[] row = listBox1.Items[i].ToString().Split('\t');
-                                sheet.Cell(i + 2, 1).SetValue(row[0]);
-                                sheet.Cell(i + 2, 2).SetValue(row[1]);
-                            }
-
-                            workbook.SaveAs(saveFileDialog1.FileName);*/
-
                             var workbook = new XLWorkbook();
                             var sheet = workbook.Worksheets.Add("Результат рішення Диф.рівнянь");
 
@@ -1176,9 +1210,21 @@ namespace Курсова
             }
             catch { }
         }
-        private void copyPoint(bool isSecondary)
+        private void copyPoint(int numberOfMethod)
         {
-            ListBox listBox = isSecondary ? listBox2 : listBox1;
+            ListBox listBox = null;
+            switch (numberOfMethod)
+            {
+                case 1:
+                    listBox = listBox1;
+                    break;
+                case 2:
+                    listBox = listBox2;
+                    break;
+                case 3:
+                    listBox = listBox3;
+                    break;
+            }
             try
             {
                 Clipboard.SetText(listBox.Text, TextDataFormat.UnicodeText);
@@ -1188,24 +1234,36 @@ namespace Курсова
 
         private void copyPointToolStripContextMenuItem_Click(object sender, EventArgs e)
         {
-            copyPoint(false);
+            copyPoint(1);
         }
 
         private void copyPointToolStripContextMenuItem1_Click(object sender, EventArgs e)
         {
-            copyPoint(true);
+            copyPoint(2);
         }
 
-        private void copyAllPoints(bool isSecondary)
+        private void copyAllPoints(int numberOfMethod)
         {
-            ListBox listBox = isSecondary ? listBox2 : listBox1;
-            StringBuilder text = new StringBuilder();
-            foreach (var item in listBox.Items)
+            ListBox listBox = null;
+            switch (numberOfMethod)
             {
-                text.AppendLine(item.ToString());
+                case 1:
+                    listBox = listBox1;
+                    break;
+                case 2:
+                    listBox = listBox2;
+                    break;
+                case 3:
+                    listBox = listBox3;
+                    break;
             }
+            StringBuilder text = new StringBuilder();
             try
             {
+                foreach (var item in listBox.Items)
+                {
+                    text.AppendLine(item.ToString());
+                }
                 Clipboard.SetText(text.ToString(), TextDataFormat.UnicodeText);
             }
             catch { }
@@ -1213,27 +1271,27 @@ namespace Курсова
 
         private void copyAllPointsToolStripContextMenuItem_Click(object sender, EventArgs e)
         {
-            copyAllPoints(false);
+            copyAllPoints(1);
         }
 
         private void copyAllPointsToolStripContextMenuItem1_Click(object sender, EventArgs e)
         {
-            copyAllPoints(true);
+            copyAllPoints(2);
         }
 
-        private void allowCopyByClickToolStripMenuItem_Click(object sender, EventArgs e)
+        private void allowCopyByClick()
         {
-            if (allowCopyByClickToolStripMenuItem.Checked)
+            if (Properties.Settings.Default.copyByClick)
             {
-                allowCopyByClickToolStripMenuItem.Checked = false;
-                listBox1.Click -= listBox_Click;
-                listBox2.Click -= listBox_Click;
+                listBox1.Click += listBox_Click;
+                listBox2.Click += listBox_Click;
+                listBox3.Click += listBox_Click;
             }
             else
             {
-                allowCopyByClickToolStripMenuItem.Checked = true;
-                listBox1.Click += listBox_Click;
-                listBox2.Click += listBox_Click;
+                listBox1.Click -= listBox_Click;
+                listBox2.Click -= listBox_Click;
+                listBox3.Click -= listBox_Click;
             }
         }
 
@@ -1244,6 +1302,13 @@ namespace Курсова
             if (panel3.Visible) additionalWidth += panel3.Width;
             panelChart.Width = this.Width - panel1.Width - additionalWidth - 12 - 20;
             panelChart.Height = this.Height - panelConditions.Height - menuStrip1.Height - 12 - 40;
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormSettings f = new FormSettings();
+            if (f.ShowDialog() == DialogResult.OK)
+                settings.apply();
         }
     }
 }
