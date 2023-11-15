@@ -32,73 +32,70 @@ namespace Курсова
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxUseDefaultConditions = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxH = new System.Windows.Forms.TextBox();
+            this.textBoxXmax = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBoxXmin = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxY0 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxX0 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxIsIterationLimited = new System.Windows.Forms.CheckBox();
+            this.numericUpDownIterationLimit = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.numericUpDownDecimalPlacesListY = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonShowManyMethods = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBoxHideLegend = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownDecimalPlacesChartY = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
+            this.checkBoxShowMarkersOnChart = new System.Windows.Forms.CheckBox();
+            this.numericUpDownMaxPointsAtChart = new System.Windows.Forms.NumericUpDown();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.textBoxChartFileName = new System.Windows.Forms.TextBox();
+            this.textBoxPointsFileName = new System.Windows.Forms.TextBox();
             this.buttonExportFolder = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
+            this.textBoxExportPath = new System.Windows.Forms.TextBox();
+            this.checkBoxCopyByClick = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.textBoxChartFileName = new System.Windows.Forms.TextBox();
-            this.textBoxPointsFileName = new System.Windows.Forms.TextBox();
-            this.textBoxExportPath = new System.Windows.Forms.TextBox();
-            this.checkBoxCopyByClick = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIterationLimit)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDecimalPlacesListY)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDecimalPlacesChartY)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPointsAtChart)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -137,17 +134,17 @@ namespace Курсова
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.checkBoxUseDefaultConditions);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.textBox5);
-            this.groupBox1.Controls.Add(this.textBox4);
+            this.groupBox1.Controls.Add(this.textBoxH);
+            this.groupBox1.Controls.Add(this.textBoxXmax);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.textBox3);
+            this.groupBox1.Controls.Add(this.textBoxXmin);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.textBoxY0);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textBoxX0);
             this.groupBox1.Location = new System.Drawing.Point(6, 43);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(583, 129);
@@ -155,15 +152,19 @@ namespace Курсова
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Значення за замовчуванням";
             // 
-            // checkBox1
+            // checkBoxUseDefaultConditions
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(33, 32);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(463, 17);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "Використовувати значення за замовчуванням якщо не вказано початкових умов";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxUseDefaultConditions.AutoSize = true;
+            this.checkBoxUseDefaultConditions.Checked = global::Курсова.Properties.Settings.Default.useDefaultConditions;
+            this.checkBoxUseDefaultConditions.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxUseDefaultConditions.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Курсова.Properties.Settings.Default, "useDefaultConditions", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBoxUseDefaultConditions.Location = new System.Drawing.Point(33, 32);
+            this.checkBoxUseDefaultConditions.Name = "checkBoxUseDefaultConditions";
+            this.checkBoxUseDefaultConditions.Size = new System.Drawing.Size(466, 17);
+            this.checkBoxUseDefaultConditions.TabIndex = 7;
+            this.checkBoxUseDefaultConditions.Text = "Використовувати значення за замовчуванням, якщо не вказано початкових умов";
+            this.checkBoxUseDefaultConditions.UseVisualStyleBackColor = true;
+            this.checkBoxUseDefaultConditions.CheckedChanged += new System.EventHandler(this.checkBoxUseDefaultConditions_CheckedChanged);
             // 
             // label5
             // 
@@ -183,19 +184,23 @@ namespace Курсова
             this.label6.TabIndex = 6;
             this.label6.Text = "Крок (h):";
             // 
-            // textBox5
+            // textBoxH
             // 
-            this.textBox5.Location = new System.Drawing.Point(428, 55);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 22);
-            this.textBox5.TabIndex = 4;
+            this.textBoxH.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "defaultH", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxH.Location = new System.Drawing.Point(428, 55);
+            this.textBoxH.Name = "textBoxH";
+            this.textBoxH.Size = new System.Drawing.Size(100, 22);
+            this.textBoxH.TabIndex = 4;
+            this.textBoxH.Text = global::Курсова.Properties.Settings.Default.defaultH;
             // 
-            // textBox4
+            // textBoxXmax
             // 
-            this.textBox4.Location = new System.Drawing.Point(251, 83);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 22);
-            this.textBox4.TabIndex = 3;
+            this.textBoxXmax.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "defaultXmax", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxXmax.Location = new System.Drawing.Point(251, 83);
+            this.textBoxXmax.Name = "textBoxXmax";
+            this.textBoxXmax.Size = new System.Drawing.Size(100, 22);
+            this.textBoxXmax.TabIndex = 3;
+            this.textBoxXmax.Text = global::Курсова.Properties.Settings.Default.defaultXmax;
             // 
             // label4
             // 
@@ -206,12 +211,14 @@ namespace Курсова
             this.label4.TabIndex = 4;
             this.label4.Text = "xmin:";
             // 
-            // textBox3
+            // textBoxXmin
             // 
-            this.textBox3.Location = new System.Drawing.Point(251, 55);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 22);
-            this.textBox3.TabIndex = 2;
+            this.textBoxXmin.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "defaultXmin", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxXmin.Location = new System.Drawing.Point(251, 55);
+            this.textBoxXmin.Name = "textBoxXmin";
+            this.textBoxXmin.Size = new System.Drawing.Size(100, 22);
+            this.textBoxXmin.TabIndex = 2;
+            this.textBoxXmin.Text = global::Курсова.Properties.Settings.Default.defaultXmin;
             // 
             // label3
             // 
@@ -222,12 +229,14 @@ namespace Курсова
             this.label3.TabIndex = 3;
             this.label3.Text = "y0:";
             // 
-            // textBox2
+            // textBoxY0
             // 
-            this.textBox2.Location = new System.Drawing.Point(74, 83);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 1;
+            this.textBoxY0.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "defaultY0", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxY0.Location = new System.Drawing.Point(74, 83);
+            this.textBoxY0.Name = "textBoxY0";
+            this.textBoxY0.Size = new System.Drawing.Size(100, 22);
+            this.textBoxY0.TabIndex = 1;
+            this.textBoxY0.Text = global::Курсова.Properties.Settings.Default.defaultY0;
             // 
             // label2
             // 
@@ -238,12 +247,14 @@ namespace Курсова
             this.label2.TabIndex = 2;
             this.label2.Text = "x0:";
             // 
-            // textBox1
+            // textBoxX0
             // 
-            this.textBox1.Location = new System.Drawing.Point(74, 55);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 0;
+            this.textBoxX0.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "defaultX0", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxX0.Location = new System.Drawing.Point(74, 55);
+            this.textBoxX0.Name = "textBoxX0";
+            this.textBoxX0.Size = new System.Drawing.Size(100, 22);
+            this.textBoxX0.TabIndex = 0;
+            this.textBoxX0.Text = global::Курсова.Properties.Settings.Default.defaultX0;
             // 
             // label1
             // 
@@ -257,11 +268,11 @@ namespace Курсова
             // tabPage2
             // 
             this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tabPage2.Controls.Add(this.checkBox3);
-            this.tabPage2.Controls.Add(this.numericUpDown3);
+            this.tabPage2.Controls.Add(this.checkBoxIsIterationLimited);
+            this.tabPage2.Controls.Add(this.numericUpDownIterationLimit);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.button1);
+            this.tabPage2.Controls.Add(this.buttonShowManyMethods);
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Location = new System.Drawing.Point(104, 4);
             this.tabPage2.Name = "tabPage2";
@@ -271,98 +282,81 @@ namespace Курсова
             this.tabPage2.Text = "Розразунок";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // checkBoxIsIterationLimited
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(33, 187);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(256, 17);
-            this.checkBox3.TabIndex = 5;
-            this.checkBox3.Text = "Обмежити максимальну кількість ітерацій:";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBoxIsIterationLimited.AutoSize = true;
+            this.checkBoxIsIterationLimited.Checked = global::Курсова.Properties.Settings.Default.isIterationLimited;
+            this.checkBoxIsIterationLimited.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Курсова.Properties.Settings.Default, "isIterationLimited", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBoxIsIterationLimited.Location = new System.Drawing.Point(31, 158);
+            this.checkBoxIsIterationLimited.Name = "checkBoxIsIterationLimited";
+            this.checkBoxIsIterationLimited.Size = new System.Drawing.Size(256, 17);
+            this.checkBoxIsIterationLimited.TabIndex = 5;
+            this.checkBoxIsIterationLimited.Text = "Обмежити максимальну кількість ітерацій:";
+            this.checkBoxIsIterationLimited.UseVisualStyleBackColor = true;
+            this.checkBoxIsIterationLimited.CheckedChanged += new System.EventHandler(this.checkBoxIsIterationLimited_CheckedChanged);
             // 
-            // numericUpDown3
+            // numericUpDownIterationLimit
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(295, 186);
-            this.numericUpDown3.Minimum = new decimal(new int[] {
+            this.numericUpDownIterationLimit.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Курсова.Properties.Settings.Default, "iterationLimit", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDownIterationLimit.Location = new System.Drawing.Point(293, 157);
+            this.numericUpDownIterationLimit.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownIterationLimit.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(120, 22);
-            this.numericUpDown3.TabIndex = 4;
-            this.numericUpDown3.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.numericUpDownIterationLimit.Name = "numericUpDownIterationLimit";
+            this.numericUpDownIterationLimit.Size = new System.Drawing.Size(128, 22);
+            this.numericUpDownIterationLimit.TabIndex = 4;
+            this.numericUpDownIterationLimit.Value = global::Курсова.Properties.Settings.Default.iterationLimit;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.numericUpDown2);
-            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.numericUpDown1);
-            this.groupBox2.Controls.Add(this.checkBox2);
+            this.groupBox2.Controls.Add(this.numericUpDownDecimalPlacesListY);
+            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Location = new System.Drawing.Point(6, 80);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(581, 100);
+            this.groupBox2.Size = new System.Drawing.Size(581, 63);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Округлення значень";
             // 
-            // numericUpDown2
+            // label9
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(201, 60);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(225, 27);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(98, 13);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "знаку після коми";
+            // 
+            // numericUpDownDecimalPlacesListY
+            // 
+            this.numericUpDownDecimalPlacesListY.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Курсова.Properties.Settings.Default, "decimalPlacesListY", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDownDecimalPlacesListY.Location = new System.Drawing.Point(184, 25);
+            this.numericUpDownDecimalPlacesListY.Maximum = new decimal(new int[] {
             9,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(35, 22);
-            this.numericUpDown2.TabIndex = 4;
+            this.numericUpDownDecimalPlacesListY.Name = "numericUpDownDecimalPlacesListY";
+            this.numericUpDownDecimalPlacesListY.Size = new System.Drawing.Size(35, 22);
+            this.numericUpDownDecimalPlacesListY.TabIndex = 4;
+            this.numericUpDownDecimalPlacesListY.Value = global::Курсова.Properties.Settings.Default.decimalPlacesListY;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(24, 62);
+            this.label10.Location = new System.Drawing.Point(22, 27);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(171, 13);
+            this.label10.Size = new System.Drawing.Size(156, 13);
             this.label10.TabIndex = 3;
-            this.label10.Text = "Кількість знаків після коми (y):";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(24, 34);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(171, 13);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Кількість знаків після коми (x):";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(201, 32);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(35, 22);
-            this.numericUpDown1.TabIndex = 1;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(242, 33);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(157, 17);
-            this.checkBox2.TabIndex = 0;
-            this.checkBox2.Text = "За значенням кроку ( h )";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.label10.Text = "Округлення значення (y) до";
             // 
             // label8
             // 
@@ -373,14 +367,15 @@ namespace Курсова
             this.label8.TabIndex = 2;
             this.label8.Text = "Відобразити декілька методів:";
             // 
-            // button1
+            // buttonShowManyMethods
             // 
-            this.button1.Location = new System.Drawing.Point(205, 42);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(164, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Параметри відображення...";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonShowManyMethods.Location = new System.Drawing.Point(205, 42);
+            this.buttonShowManyMethods.Name = "buttonShowManyMethods";
+            this.buttonShowManyMethods.Size = new System.Drawing.Size(164, 23);
+            this.buttonShowManyMethods.TabIndex = 1;
+            this.buttonShowManyMethods.Text = "Параметри відображення...";
+            this.buttonShowManyMethods.UseVisualStyleBackColor = true;
+            this.buttonShowManyMethods.Click += new System.EventHandler(this.buttonShowManyMethods_Click);
             // 
             // label7
             // 
@@ -394,13 +389,13 @@ namespace Курсова
             // tabPage3
             // 
             this.tabPage3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tabPage3.Controls.Add(this.checkBox5);
+            this.tabPage3.Controls.Add(this.checkBoxHideLegend);
             this.tabPage3.Controls.Add(this.groupBox3);
             this.tabPage3.Controls.Add(this.label13);
             this.tabPage3.Controls.Add(this.label12);
             this.tabPage3.Controls.Add(this.label11);
-            this.tabPage3.Controls.Add(this.checkBox4);
-            this.tabPage3.Controls.Add(this.numericUpDown4);
+            this.tabPage3.Controls.Add(this.checkBoxShowMarkersOnChart);
+            this.tabPage3.Controls.Add(this.numericUpDownMaxPointsAtChart);
             this.tabPage3.Location = new System.Drawing.Point(104, 4);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(596, 331);
@@ -408,28 +403,43 @@ namespace Курсова
             this.tabPage3.Text = "Графік";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // checkBox5
+            // checkBoxHideLegend
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Checked = global::Курсова.Properties.Settings.Default.hideLegend;
-            this.checkBox5.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Курсова.Properties.Settings.Default, "hideLegend", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox5.Location = new System.Drawing.Point(37, 203);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(129, 17);
-            this.checkBox5.TabIndex = 6;
-            this.checkBox5.Text = "Приховати легенду";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBoxHideLegend.AutoSize = true;
+            this.checkBoxHideLegend.Checked = global::Курсова.Properties.Settings.Default.hideLegend;
+            this.checkBoxHideLegend.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxHideLegend.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Курсова.Properties.Settings.Default, "hideLegend", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBoxHideLegend.Location = new System.Drawing.Point(37, 219);
+            this.checkBoxHideLegend.Name = "checkBoxHideLegend";
+            this.checkBoxHideLegend.Size = new System.Drawing.Size(129, 17);
+            this.checkBoxHideLegend.TabIndex = 6;
+            this.checkBoxHideLegend.Text = "Приховати легенду";
+            this.checkBoxHideLegend.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.numericUpDown5);
+            this.groupBox3.Controls.Add(this.numericUpDownDecimalPlacesChartY);
             this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Location = new System.Drawing.Point(10, 115);
+            this.groupBox3.Location = new System.Drawing.Point(10, 131);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(577, 72);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Округлення значень";
+            // 
+            // numericUpDownDecimalPlacesChartY
+            // 
+            this.numericUpDownDecimalPlacesChartY.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Курсова.Properties.Settings.Default, "decimalPlacesChartY", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDownDecimalPlacesChartY.Location = new System.Drawing.Point(201, 29);
+            this.numericUpDownDecimalPlacesChartY.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.numericUpDownDecimalPlacesChartY.Name = "numericUpDownDecimalPlacesChartY";
+            this.numericUpDownDecimalPlacesChartY.Size = new System.Drawing.Size(35, 22);
+            this.numericUpDownDecimalPlacesChartY.TabIndex = 4;
+            this.numericUpDownDecimalPlacesChartY.Value = global::Курсова.Properties.Settings.Default.decimalPlacesChartY;
             // 
             // label14
             // 
@@ -443,21 +453,23 @@ namespace Курсова
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.ForeColor = System.Drawing.Color.Maroon;
-            this.label13.Location = new System.Drawing.Point(334, 79);
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Location = new System.Drawing.Point(334, 85);
+            this.label13.MaximumSize = new System.Drawing.Size(180, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(254, 13);
+            this.label13.Size = new System.Drawing.Size(180, 26);
             this.label13.TabIndex = 3;
-            this.label13.Text = "(може сильно вповільнити роботу програми)";
+            this.label13.Text = "Великі значення можуть сильно вповільнити роботу програми!";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(33, 79);
+            this.label12.Location = new System.Drawing.Point(33, 85);
+            this.label12.MaximumSize = new System.Drawing.Size(250, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(225, 13);
+            this.label12.Size = new System.Drawing.Size(225, 26);
             this.label12.TabIndex = 1;
-            this.label12.Text = "Максимальна кількість точок на графіку:";
+            this.label12.Text = "Максимальна кількість точок на графіку (окрім точки x0):";
             // 
             // label11
             // 
@@ -467,6 +479,37 @@ namespace Курсова
             this.label11.Size = new System.Drawing.Size(131, 13);
             this.label11.TabIndex = 0;
             this.label11.Text = "Налаштування графіків";
+            // 
+            // checkBoxShowMarkersOnChart
+            // 
+            this.checkBoxShowMarkersOnChart.AutoSize = true;
+            this.checkBoxShowMarkersOnChart.Checked = global::Курсова.Properties.Settings.Default.showMarker;
+            this.checkBoxShowMarkersOnChart.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Курсова.Properties.Settings.Default, "showMarker", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBoxShowMarkersOnChart.Location = new System.Drawing.Point(33, 54);
+            this.checkBoxShowMarkersOnChart.Name = "checkBoxShowMarkersOnChart";
+            this.checkBoxShowMarkersOnChart.Size = new System.Drawing.Size(189, 17);
+            this.checkBoxShowMarkersOnChart.TabIndex = 5;
+            this.checkBoxShowMarkersOnChart.Text = "Відображати точки на графіку";
+            this.checkBoxShowMarkersOnChart.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownMaxPointsAtChart
+            // 
+            this.numericUpDownMaxPointsAtChart.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Курсова.Properties.Settings.Default, "maxPointsAtChart", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDownMaxPointsAtChart.Location = new System.Drawing.Point(264, 83);
+            this.numericUpDownMaxPointsAtChart.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxPointsAtChart.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownMaxPointsAtChart.Name = "numericUpDownMaxPointsAtChart";
+            this.numericUpDownMaxPointsAtChart.Size = new System.Drawing.Size(64, 22);
+            this.numericUpDownMaxPointsAtChart.TabIndex = 2;
+            this.numericUpDownMaxPointsAtChart.Value = global::Курсова.Properties.Settings.Default.maxPointsAtChart;
             // 
             // tabPage4
             // 
@@ -516,6 +559,24 @@ namespace Курсова
             this.label19.TabIndex = 8;
             this.label19.Text = "Файл точок:";
             // 
+            // textBoxChartFileName
+            // 
+            this.textBoxChartFileName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "chartFileName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxChartFileName.Location = new System.Drawing.Point(111, 24);
+            this.textBoxChartFileName.Name = "textBoxChartFileName";
+            this.textBoxChartFileName.Size = new System.Drawing.Size(100, 22);
+            this.textBoxChartFileName.TabIndex = 5;
+            this.textBoxChartFileName.Text = global::Курсова.Properties.Settings.Default.chartFileName;
+            // 
+            // textBoxPointsFileName
+            // 
+            this.textBoxPointsFileName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "pointsFileName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxPointsFileName.Location = new System.Drawing.Point(111, 52);
+            this.textBoxPointsFileName.Name = "textBoxPointsFileName";
+            this.textBoxPointsFileName.Size = new System.Drawing.Size(100, 22);
+            this.textBoxPointsFileName.TabIndex = 6;
+            this.textBoxPointsFileName.Text = global::Курсова.Properties.Settings.Default.pointsFileName;
+            // 
             // buttonExportFolder
             // 
             this.buttonExportFolder.Location = new System.Drawing.Point(450, 97);
@@ -543,6 +604,27 @@ namespace Курсова
             this.label16.Size = new System.Drawing.Size(171, 13);
             this.label16.TabIndex = 2;
             this.label16.Text = "Параметри збереження даних";
+            // 
+            // textBoxExportPath
+            // 
+            this.textBoxExportPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "ExportPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxExportPath.Location = new System.Drawing.Point(140, 99);
+            this.textBoxExportPath.Name = "textBoxExportPath";
+            this.textBoxExportPath.Size = new System.Drawing.Size(304, 22);
+            this.textBoxExportPath.TabIndex = 1;
+            this.textBoxExportPath.Text = global::Курсова.Properties.Settings.Default.exportPath;
+            // 
+            // checkBoxCopyByClick
+            // 
+            this.checkBoxCopyByClick.AutoSize = true;
+            this.checkBoxCopyByClick.Checked = global::Курсова.Properties.Settings.Default.copyByClick;
+            this.checkBoxCopyByClick.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Курсова.Properties.Settings.Default, "CopyByClick", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBoxCopyByClick.Location = new System.Drawing.Point(16, 61);
+            this.checkBoxCopyByClick.Name = "checkBoxCopyByClick";
+            this.checkBoxCopyByClick.Size = new System.Drawing.Size(197, 17);
+            this.checkBoxCopyByClick.TabIndex = 0;
+            this.checkBoxCopyByClick.Text = "Копіювання натисканням миші:";
+            this.checkBoxCopyByClick.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -597,90 +679,6 @@ namespace Курсова
             this.panel2.Size = new System.Drawing.Size(704, 339);
             this.panel2.TabIndex = 2;
             // 
-            // numericUpDown5
-            // 
-            this.numericUpDown5.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Курсова.Properties.Settings.Default, "decimalPlacesChartY", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDown5.Location = new System.Drawing.Point(201, 29);
-            this.numericUpDown5.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
-            this.numericUpDown5.Name = "numericUpDown5";
-            this.numericUpDown5.Size = new System.Drawing.Size(35, 22);
-            this.numericUpDown5.TabIndex = 4;
-            this.numericUpDown5.Value = global::Курсова.Properties.Settings.Default.decimalPlacesChartY;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Checked = global::Курсова.Properties.Settings.Default.showMarker;
-            this.checkBox4.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Курсова.Properties.Settings.Default, "showMarker", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBox4.Location = new System.Drawing.Point(33, 54);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(189, 17);
-            this.checkBox4.TabIndex = 5;
-            this.checkBox4.Text = "Відображати точки на графіку";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::Курсова.Properties.Settings.Default, "maxPointsAtChart", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDown4.Location = new System.Drawing.Point(264, 77);
-            this.numericUpDown4.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDown4.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(64, 22);
-            this.numericUpDown4.TabIndex = 2;
-            this.numericUpDown4.Value = global::Курсова.Properties.Settings.Default.maxPointsAtChart;
-            // 
-            // textBoxChartFileName
-            // 
-            this.textBoxChartFileName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "chartFileName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxChartFileName.Location = new System.Drawing.Point(111, 24);
-            this.textBoxChartFileName.Name = "textBoxChartFileName";
-            this.textBoxChartFileName.Size = new System.Drawing.Size(100, 22);
-            this.textBoxChartFileName.TabIndex = 5;
-            this.textBoxChartFileName.Text = global::Курсова.Properties.Settings.Default.chartFileName;
-            // 
-            // textBoxPointsFileName
-            // 
-            this.textBoxPointsFileName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "pointsFileName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxPointsFileName.Location = new System.Drawing.Point(111, 52);
-            this.textBoxPointsFileName.Name = "textBoxPointsFileName";
-            this.textBoxPointsFileName.Size = new System.Drawing.Size(100, 22);
-            this.textBoxPointsFileName.TabIndex = 6;
-            this.textBoxPointsFileName.Text = global::Курсова.Properties.Settings.Default.pointsFileName;
-            // 
-            // textBoxExportPath
-            // 
-            this.textBoxExportPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "ExportPath", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxExportPath.Location = new System.Drawing.Point(140, 99);
-            this.textBoxExportPath.Name = "textBoxExportPath";
-            this.textBoxExportPath.Size = new System.Drawing.Size(304, 22);
-            this.textBoxExportPath.TabIndex = 1;
-            this.textBoxExportPath.Text = global::Курсова.Properties.Settings.Default.exportPath;
-            // 
-            // checkBoxCopyByClick
-            // 
-            this.checkBoxCopyByClick.AutoSize = true;
-            this.checkBoxCopyByClick.Checked = global::Курсова.Properties.Settings.Default.copyByClick;
-            this.checkBoxCopyByClick.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Курсова.Properties.Settings.Default, "CopyByClick", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.checkBoxCopyByClick.Location = new System.Drawing.Point(16, 61);
-            this.checkBoxCopyByClick.Name = "checkBoxCopyByClick";
-            this.checkBoxCopyByClick.Size = new System.Drawing.Size(197, 17);
-            this.checkBoxCopyByClick.TabIndex = 0;
-            this.checkBoxCopyByClick.Text = "Копіювання натисканням миші:";
-            this.checkBoxCopyByClick.UseVisualStyleBackColor = true;
-            // 
             // FormSettings
             // 
             this.AcceptButton = this.buttonOK;
@@ -705,23 +703,22 @@ namespace Курсова
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIterationLimit)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDecimalPlacesListY)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDecimalPlacesChartY)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMaxPointsAtChart)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -737,38 +734,35 @@ namespace Курсова
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBoxX0;
+        private System.Windows.Forms.TextBox textBoxY0;
+        private System.Windows.Forms.TextBox textBoxXmin;
+        private System.Windows.Forms.TextBox textBoxXmax;
+        private System.Windows.Forms.TextBox textBoxH;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxUseDefaultConditions;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonShowManyMethods;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.NumericUpDown numericUpDownDecimalPlacesListY;
+        private System.Windows.Forms.NumericUpDown numericUpDownIterationLimit;
+        private System.Windows.Forms.CheckBox checkBoxIsIterationLimited;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.NumericUpDown numericUpDownMaxPointsAtChart;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.NumericUpDown numericUpDown5;
+        private System.Windows.Forms.NumericUpDown numericUpDownDecimalPlacesChartY;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBoxShowMarkersOnChart;
+        private System.Windows.Forms.CheckBox checkBoxHideLegend;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -782,5 +776,6 @@ namespace Курсова
         private System.Windows.Forms.TextBox textBoxExportPath;
         private System.Windows.Forms.CheckBox checkBoxCopyByClick;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label9;
     }
 }

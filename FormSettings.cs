@@ -57,7 +57,8 @@ namespace Курсова
 
         private void FormSettings_Load(object sender, EventArgs e)
         {
-            //tabControl1.Height = 450 - panel1.Height - 100;
+            numericUpDownIterationLimit.Enabled = checkBoxIsIterationLimited.Checked;
+            textBoxX0.Enabled = textBoxY0.Enabled = textBoxXmin.Enabled = textBoxXmax.Enabled = textBoxH.Enabled = checkBoxUseDefaultConditions.Checked;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -78,7 +79,7 @@ namespace Курсова
         private void button2_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show(
-                "Ця дія приведе ВСІ значення до значень за замовчуванням. Ця дія є незворотною. \nПродовжити?", "Exclamation", 
+                "Ця дія скине ВСІ значення до значень за замовчуванням. Вона є незворотною. Продовжити?", "Exclamation", 
                 MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) 
                 == DialogResult.Yes)
             {
@@ -130,6 +131,26 @@ namespace Курсова
             {
                 textBoxExportPath.Text = folderBrowserDialog1.SelectedPath;
             }
+        }
+
+        private void checkBoxIsIterationLimited_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownIterationLimit.Enabled = checkBoxIsIterationLimited.Checked;
+        }
+
+        private void buttonShowManyMethods_Click(object sender, EventArgs e)
+        {
+            FormModalShowManyMethods modal = new FormModalShowManyMethods();
+            modal.ShowDialog();
+        }
+
+        private void checkBoxUseDefaultConditions_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxX0.Enabled = checkBoxUseDefaultConditions.Checked;
+            textBoxY0.Enabled = checkBoxUseDefaultConditions.Checked;
+            textBoxXmin.Enabled = checkBoxUseDefaultConditions.Checked;
+            textBoxXmax.Enabled = checkBoxUseDefaultConditions.Checked;
+            textBoxH.Enabled = checkBoxUseDefaultConditions.Checked;
         }
     }
 }

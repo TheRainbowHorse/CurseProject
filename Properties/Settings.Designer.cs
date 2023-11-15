@@ -86,9 +86,9 @@ namespace Курсова.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public decimal maxPointsAtChart {
+        public int maxPointsAtChart {
             get {
-                return ((decimal)(this["maxPointsAtChart"]));
+                return ((int)(this["maxPointsAtChart"]));
             }
             set {
                 this["maxPointsAtChart"] = value;
@@ -98,9 +98,9 @@ namespace Курсова.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public decimal decimalPlacesChartY {
+        public int decimalPlacesChartY {
             get {
-                return ((decimal)(this["decimalPlacesChartY"]));
+                return ((int)(this["decimalPlacesChartY"]));
             }
             set {
                 this["decimalPlacesChartY"] = value;
@@ -109,13 +109,133 @@ namespace Курсова.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool hideLegend {
             get {
                 return ((bool)(this["hideLegend"]));
             }
             set {
                 this["hideLegend"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("9")]
+        public int decimalPlacesListY {
+            get {
+                return ((int)(this["decimalPlacesListY"]));
+            }
+            set {
+                this["decimalPlacesListY"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool isIterationLimited {
+            get {
+                return ((bool)(this["isIterationLimited"]));
+            }
+            set {
+                this["isIterationLimited"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int iterationLimit {
+            get {
+                return ((int)(this["iterationLimit"]));
+            }
+            set {
+                this["iterationLimit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int countOfMethods {
+            get {
+                return ((int)(this["countOfMethods"]));
+            }
+            set {
+                this["countOfMethods"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool useDefaultConditions {
+            get {
+                return ((bool)(this["useDefaultConditions"]));
+            }
+            set {
+                this["useDefaultConditions"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string defaultX0 {
+            get {
+                return ((string)(this["defaultX0"]));
+            }
+            set {
+                this["defaultX0"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string defaultY0 {
+            get {
+                return ((string)(this["defaultY0"]));
+            }
+            set {
+                this["defaultY0"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string defaultXmin {
+            get {
+                return ((string)(this["defaultXmin"]));
+            }
+            set {
+                this["defaultXmin"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string defaultXmax {
+            get {
+                return ((string)(this["defaultXmax"]));
+            }
+            set {
+                this["defaultXmax"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,1")]
+        public string defaultH {
+            get {
+                return ((string)(this["defaultH"]));
+            }
+            set {
+                this["defaultH"] = value;
             }
         }
     }

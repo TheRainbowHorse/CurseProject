@@ -345,8 +345,8 @@ namespace Курсова
             // 
             this.floatableChartToolStripMenuItem.Enabled = false;
             this.floatableChartToolStripMenuItem.Name = "floatableChartToolStripMenuItem";
-            this.floatableChartToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.floatableChartToolStripMenuItem.Text = "Плаваючий графік";
+            this.floatableChartToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.floatableChartToolStripMenuItem.Text = "Графік на весь екран";
             this.floatableChartToolStripMenuItem.Click += new System.EventHandler(this.floatableChartToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
@@ -506,6 +506,7 @@ namespace Курсова
             // 
             chartArea1.AxisX.IsMarginVisible = false;
             chartArea1.AxisX.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
+            chartArea1.AxisX2.IsMarginVisible = false;
             chartArea1.AxisX2.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
             chartArea1.AxisY.ScrollBar.ButtonStyle = System.Windows.Forms.DataVisualization.Charting.ScrollBarButtonStyles.SmallScroll;
             chartArea1.AxisY2.LabelStyle.Format = "0.000";
@@ -563,26 +564,26 @@ namespace Курсова
             this.hideFloatableChartToolStripMenuItem,
             this.exportChartToolStripContextMenuItem});
             this.chartContextMenuStrip1.Name = "chartContextMenuStrip1";
-            this.chartContextMenuStrip1.Size = new System.Drawing.Size(192, 70);
+            this.chartContextMenuStrip1.Size = new System.Drawing.Size(195, 70);
             // 
             // hideChartToolStripMenuItem
             // 
             this.hideChartToolStripMenuItem.Name = "hideChartToolStripMenuItem";
-            this.hideChartToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.hideChartToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.hideChartToolStripMenuItem.Text = "Приховати графік";
             this.hideChartToolStripMenuItem.Click += new System.EventHandler(this.hideChartToolStripMenuItem_Click);
             // 
             // hideFloatableChartToolStripMenuItem
             // 
             this.hideFloatableChartToolStripMenuItem.Name = "hideFloatableChartToolStripMenuItem";
-            this.hideFloatableChartToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.hideFloatableChartToolStripMenuItem.Text = "Плаваючий графік";
+            this.hideFloatableChartToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.hideFloatableChartToolStripMenuItem.Text = "Графік на весь екран";
             this.hideFloatableChartToolStripMenuItem.Click += new System.EventHandler(this.hideFloatableChartToolStripMenuItem_Click);
             // 
             // exportChartToolStripContextMenuItem
             // 
             this.exportChartToolStripContextMenuItem.Name = "exportChartToolStripContextMenuItem";
-            this.exportChartToolStripContextMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.exportChartToolStripContextMenuItem.Size = new System.Drawing.Size(194, 22);
             this.exportChartToolStripContextMenuItem.Text = "Експортувати графік";
             this.exportChartToolStripContextMenuItem.Click += new System.EventHandler(this.exportChartToolStripMenuItem_Click);
             // 
@@ -705,7 +706,6 @@ namespace Курсова
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox4;
@@ -719,7 +719,6 @@ namespace Курсова
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -754,11 +753,13 @@ namespace Курсова
         private System.Windows.Forms.ToolStripMenuItem copyAllPointsToolStripContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyAllPointsToolStripContextMenuItem1;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.Panel panelConditions;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        public System.Windows.Forms.ComboBox comboBox1;
+        public System.Windows.Forms.ComboBox comboBox2;
+        public System.Windows.Forms.ComboBox comboBox3;
     }
 }
 
