@@ -52,6 +52,17 @@ namespace Курсова
             textBox5.GotFocus += textBoxAutoSizeOn; textBox5.LostFocus += textBoxAutoSizeOff; textBox5.TextChanged += textBoxAutoSizeOn;
             textBox6.GotFocus += textBoxAutoSizeOn; textBox6.LostFocus += textBoxAutoSizeOff; textBox6.TextChanged += textBoxAutoSizeOn;
 
+            textBox2.GotFocus += removePlaceHolder;
+            textBox3.GotFocus += removePlaceHolder;
+            textBox4.GotFocus += removePlaceHolder;
+            textBox5.GotFocus += removePlaceHolder;
+            textBox6.GotFocus += removePlaceHolder;
+            textBox2.LostFocus += addPlaceHolder;
+            textBox3.LostFocus += addPlaceHolder;
+            textBox4.LostFocus += addPlaceHolder;
+            textBox5.LostFocus += addPlaceHolder;
+            textBox6.LostFocus += addPlaceHolder;
+
             chart1.ChartAreas[0].CursorX.Interval = 0;
             chart1.ChartAreas[0].CursorY.Interval = 0;
             chart1.ChartAreas[0].AxisX.ScaleView.Zoomable = true;
@@ -118,10 +129,6 @@ namespace Курсова
 
                 f.showMethods();
 
-                if (Properties.Settings.Default.useDefaultConditions)
-                    f.assignPlaceHolder();
-                else
-                    f.unassignPlaceHolder();
                 f.initConditions();
             }
         }
@@ -135,6 +142,12 @@ namespace Курсова
                 return;
             }
 
+            double xmin;
+            double xmax;
+            double y0;
+            double x0;
+            double h;
+
             button1.Enabled = false;
             button3.Enabled = true;
             button3.Focus();
@@ -143,19 +156,29 @@ namespace Курсова
             limitStopFlag = false;
             ignoreLimitFlag = false;
 
-            double xmin = 0;
-            double xmax = 1;
-            double y0 = 0;
-            double x0 = 0;
-            double h = 0.1;
-
             try
             {
-                if (!String.IsNullOrEmpty(textBox2.Text)) x0 = double.Parse(textBox2.Text.Replace('.', ','));
-                if (!String.IsNullOrEmpty(textBox3.Text)) y0 = double.Parse(textBox3.Text.Replace('.', ','));
-                if (!String.IsNullOrEmpty(textBox4.Text)) xmin = double.Parse(textBox4.Text.Replace('.', ','));
-                if (!String.IsNullOrEmpty(textBox5.Text)) xmax = double.Parse(textBox5.Text.Replace('.', ','));
-                if (!String.IsNullOrEmpty(textBox6.Text)) h = double.Parse(textBox6.Text.Replace('.', ','));
+                if (Properties.Settings.Default.useDefaultConditions)
+                {
+                    xmin = double.Parse(Properties.Settings.Default.defaultXmin.Replace('.', ','));
+                    xmax = double.Parse(Properties.Settings.Default.defaultXmax.Replace('.', ','));
+                    y0 = double.Parse(Properties.Settings.Default.defaultY0.Replace('.', ','));
+                    x0 = double.Parse(Properties.Settings.Default.defaultX0.Replace('.', ','));
+                    h = double.Parse(Properties.Settings.Default.defaultH.Replace('.', ','));
+                    if (!String.IsNullOrEmpty(textBox2.Text)) x0 = double.Parse(textBox2.Text.Replace('.', ','));
+                    if (!String.IsNullOrEmpty(textBox3.Text)) y0 = double.Parse(textBox3.Text.Replace('.', ','));
+                    if (!String.IsNullOrEmpty(textBox4.Text)) xmin = double.Parse(textBox4.Text.Replace('.', ','));
+                    if (!String.IsNullOrEmpty(textBox5.Text)) xmax = double.Parse(textBox5.Text.Replace('.', ','));
+                    if (!String.IsNullOrEmpty(textBox6.Text)) h = double.Parse(textBox6.Text.Replace('.', ','));
+                }
+                else
+                {
+                    x0 = double.Parse(textBox2.Text.Replace('.', ','));
+                    y0 = double.Parse(textBox3.Text.Replace('.', ','));
+                    xmin = double.Parse(textBox4.Text.Replace('.', ','));
+                    xmax = double.Parse(textBox5.Text.Replace('.', ','));
+                    h = double.Parse(textBox6.Text.Replace('.', ','));
+                }
 
             }
             catch
@@ -490,10 +513,18 @@ namespace Курсова
             else
                 dpx = GetDecimalDigitsCount(h);
             int dpy = Properties.Settings.Default.decimalPlacesListY;
-            Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
-            listBox.Invoke(action0);
-            points.Add(new double[] { x0, y0 });
-            if (Abs(x0) < 1.0E+28 && Abs(y0) < 1.0E+28)
+            int xminDC = GetDecimalDigitsCount(xmin);
+            if (xminDC < GetDecimalDigitsCount(h))
+                xminDC = GetDecimalDigitsCount(h);
+            if (xminDC < GetDecimalDigitsCount(x0))
+                xminDC = GetDecimalDigitsCount(x0);
+            if (Round(x0, xminDC) >= Round(xmin, xminDC))
+            {
+                Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
+                listBox.Invoke(action0);
+                points.Add(new double[] { x0, y0 });
+            }
+            if ((Abs(x0) > 1.0E-28 || x0 == 0) && (Abs(y0) > 1.0E-28 || y0 == 0) && Abs(x0) < 1.0E+28 && Abs(y0) < 1.0E+28)
             {
                 Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
                 Invoke(actionP0);
@@ -502,13 +533,10 @@ namespace Курсова
                 if (!limitReachedExeption)
                 {
                     limitReachedExeption = true;
-                    MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
+                    MessageBox.Show("Деякі значення точок занадто великі або малі. Ці значення не будуть відображені на графіку",
                         "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
-            int xminDC = GetDecimalDigitsCount(xmin);
-            if (xminDC < GetDecimalDigitsCount(h))
-                xminDC = GetDecimalDigitsCount(h);
             int xmaxDC = GetDecimalDigitsCount(xmax);
             if (xmaxDC < GetDecimalDigitsCount(h))
                 xmaxDC = GetDecimalDigitsCount(h);
@@ -519,7 +547,7 @@ namespace Курсова
                 double k = 0;
                 double pointsCount = (xmax - xmin) / h;
                 double newStep = pointsCount / (double)Properties.Settings.Default.maxPointsAtChart;
-                while (Round(xmin, xminDC) + h <= Round(xmax, xmaxDC))
+                while (Round(x0, xminDC) + h <= Round(xmax, xmaxDC))
                 {
                     double df = der(f, x0, y0);
                     double dfn = der(f, x0 + h, df * h + y0);
@@ -527,36 +555,37 @@ namespace Курсова
 
                     x0 += h;
                     y0 = y;
-                    xmin += h;
-
-                    Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
-                    listBox.Invoke(action1);
-                    points.Add(new double[] { x0, y0 });
-                    if (x0 < 1.0E+28 && y0 < 1.0E+28)
+                    if (Round(x0, xminDC) >= Round(xmin, xminDC))
                     {
-                        if (pointsCount > (double)Properties.Settings.Default.maxPointsAtChart)
+                        Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
+                        listBox.Invoke(action1);
+                        points.Add(new double[] { x0, y0 });
+                        if ((Abs(x0) > 1.0E-28 || x0 == 0) && (Abs(y0) > 1.0E-28 || y0 == 0) && Abs(x0) < 1.0E+28 && Abs(y0) < 1.0E+28)
                         {
-                            j++;
-                            if (j > k || j == pointsCount)
+                            if (pointsCount > (double)Properties.Settings.Default.maxPointsAtChart)
                             {
-                                k += newStep;
+                                j++;
+                                if (j > k || j == pointsCount)
+                                {
+                                    k += newStep;
+                                    Action actionP1 = () => addPointToChart(x0, y0, methodNumber);
+                                    Invoke(actionP1);
+                                }
+                            }
+                            else
+                            {
                                 Action actionP1 = () => addPointToChart(x0, y0, methodNumber);
                                 Invoke(actionP1);
                             }
                         }
                         else
                         {
-                            Action actionP1 = () => addPointToChart(x0, y0, methodNumber);
-                            Invoke(actionP1);
-                        }
-                    }
-                    else
-                    {
-                        if (!limitReachedExeption)
-                        {
-                            limitReachedExeption = true;
-                            MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
-                                "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            if (!limitReachedExeption)
+                            {
+                                limitReachedExeption = true;
+                                MessageBox.Show("Деякі значення точок занадто великі або малі. Ці значення не будуть відображені на графіку",
+                                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
                         }
                     }
                     DialogResult result = DialogResult.None;
@@ -627,24 +656,29 @@ namespace Курсова
             else
                 dpx = GetDecimalDigitsCount(h);
             int dpy = Properties.Settings.Default.decimalPlacesListY;
-            Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
-            listBox.Invoke(action0);
-            points.Add(new double[] { x0, y0 });
-            if (x0 < 1.0E+28 && y0 < 1.0E+28)
-            {
-                Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
-                Invoke(actionP0);
-            }
-            else
-                if (!limitReachedExeption)
-            {
-                limitReachedExeption = true;
-                MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
-                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
             int xminDC = GetDecimalDigitsCount(xmin);
             if (xminDC < GetDecimalDigitsCount(h))
                 xminDC = GetDecimalDigitsCount(h);
+            if (xminDC < GetDecimalDigitsCount(x0))
+                xminDC = GetDecimalDigitsCount(x0);
+            if (Round(x0, xminDC) >= Round(xmin, xminDC))
+            {
+                Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
+                listBox.Invoke(action0);
+                points.Add(new double[] { x0, y0 });
+                if ((Abs(x0) > 1.0E-28 || x0 == 0) && (Abs(y0) > 1.0E-28 || y0 == 0) && Abs(x0) < 1.0E+28 && Abs(y0) < 1.0E+28)
+                {
+                    Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
+                    Invoke(actionP0);
+                }
+                else
+                    if (!limitReachedExeption)
+                    {
+                        limitReachedExeption = true;
+                        MessageBox.Show("Деякі значення точок занадто великі або малі. Ці значення не будуть відображені на графіку",
+                            "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+            }
             int xmaxDC = GetDecimalDigitsCount(xmax);
             if (xmaxDC < GetDecimalDigitsCount(h))
                 xmaxDC = GetDecimalDigitsCount(h);
@@ -655,7 +689,7 @@ namespace Курсова
                 double k = 0;
                 double pointsCount = (xmax - xmin) / h;
                 double newStep = pointsCount / (double)Properties.Settings.Default.maxPointsAtChart;
-                while (Round(xmin, xminDC) + h <= Round(xmax, xmaxDC))
+                while (Round(x0, xminDC) + h <= Round(xmax, xmaxDC))
                 {
                     double df = der(f, x0, y0);
                     double dk2 = der(f, x0 + h / 2, y0 + h / 2 * df);
@@ -665,36 +699,38 @@ namespace Курсова
 
                     x0 += h;
                     y0 = y;
-                    xmin += h;
 
-                    Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
-                    listBox.Invoke(action1);
-                    points.Add(new double[] { x0, y0 });
-                    if (x0 < 1.0E+28 && y0 < 1.0E+28)
+                    if (Round(x0, xminDC) >= Round(xmin, xminDC))
                     {
-                        if (pointsCount > (double)Properties.Settings.Default.maxPointsAtChart)
+                        Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
+                        listBox.Invoke(action1);
+                        points.Add(new double[] { x0, y0 });
+                        if ((Abs(x0) > 1.0E-28 || x0 == 0) && (Abs(y0) > 1.0E-28 || y0 == 0) && Abs(x0) < 1.0E+28 && Abs(y0) < 1.0E+28)
                         {
-                            j++;
-                            if (j > k || j == pointsCount)
+                            if (pointsCount > (double)Properties.Settings.Default.maxPointsAtChart)
                             {
-                                k += newStep;
+                                j++;
+                                if (j > k || j == pointsCount)
+                                {
+                                    k += newStep;
+                                    Action actionP1 = () => addPointToChart(x0, y0, methodNumber);
+                                    Invoke(actionP1);
+                                }
+                            }
+                            else
+                            {
                                 Action actionP1 = () => addPointToChart(x0, y0, methodNumber);
                                 Invoke(actionP1);
                             }
                         }
                         else
                         {
-                            Action actionP1 = () => addPointToChart(x0, y0, methodNumber);
-                            Invoke(actionP1);
-                        }
-                    }
-                    else
-                    {
-                        if (!limitReachedExeption)
-                        {
-                            limitReachedExeption = true;
-                            MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
-                                "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            if (!limitReachedExeption)
+                            {
+                                limitReachedExeption = true;
+                                MessageBox.Show("Деякі значення точок занадто великі або малі. Ці значення не будуть відображені на графіку",
+                                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
                         }
                     }
                     DialogResult result = DialogResult.None;
@@ -741,7 +777,7 @@ namespace Курсова
                 stopFlag = false;
             }
         }
-        (double, bool) rk(string f, double x0, double y0, double h, int methodNumber)
+        (double, bool) rk(string f, double x0, double y0, double xmin, double h, int methodNumber)
         {
             double y = 0;
             bool error = false;
@@ -770,19 +806,27 @@ namespace Курсова
                 else
                     dpx = GetDecimalDigitsCount(h);
                 int dpy = Properties.Settings.Default.decimalPlacesListY;
-                Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
-                listBox.Invoke(action1);
-                if (x0 < 1.0E+28 && y0 < 1.0E+28)
+                int xminDC = GetDecimalDigitsCount(xmin);
+                if (xminDC < GetDecimalDigitsCount(h))
+                    xminDC = GetDecimalDigitsCount(h);
+                if (xminDC < GetDecimalDigitsCount(x0))
+                    xminDC = GetDecimalDigitsCount(x0);
+                if (Round(x0, xminDC) >= Round(xmin, xminDC))
                 {
-                    Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
-                    Invoke(actionP0);
-                }
-                else
+                    Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
+                    listBox.Invoke(action1);
+                    if ((Abs(x0) > 1.0E-28 || x0 == 0) && (Abs(y0) > 1.0E-28 || y0 == 0) && Abs(x0) < 1.0E+28 && Abs(y0) < 1.0E+28)
+                    {
+                        Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
+                        Invoke(actionP0);
+                    }
+                    else
                     if (!limitReachedExeption)
-                {
-                    limitReachedExeption = true;
-                    MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
-                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    {
+                        limitReachedExeption = true;
+                        MessageBox.Show("Деякі значення точок занадто великі або малі. Ці значення не будуть відображені на графіку",
+                            "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 DialogResult result = DialogResult.None;
                 if (Properties.Settings.Default.isIterationLimited && i == Properties.Settings.Default.iterationLimit)
@@ -838,24 +882,29 @@ namespace Курсова
             else
                 dpx = GetDecimalDigitsCount(h);
             int dpy = Properties.Settings.Default.decimalPlacesListY;
-            Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
-            listBox.Invoke(action0);
-            points.Add(new double[] { x0, y0 });
-            if (x0 < 1.0E+28 && y0 < 1.0E+28)
-            {
-                Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
-                Invoke(actionP0);
-            }
-            else
-                if (!limitReachedExeption)
-            {
-                limitReachedExeption = true;
-                MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
-                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
             int xminDC = GetDecimalDigitsCount(xmin);
             if (xminDC < GetDecimalDigitsCount(h))
                 xminDC = GetDecimalDigitsCount(h);
+            if (xminDC < GetDecimalDigitsCount(x0))
+                xminDC = GetDecimalDigitsCount(x0);
+            if (Round(x0, xminDC) >= Round(xmin, xminDC))
+            {
+                Action action0 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
+                listBox.Invoke(action0);
+                points.Add(new double[] { x0, y0 });
+                if ((Abs(x0) > 1.0E-28 || x0 == 0) && (Abs(y0) > 1.0E-28 || y0 == 0) && Abs(x0) < 1.0E+28 && Abs(y0) < 1.0E+28)
+                {
+                    Action actionP0 = () => addPointToChart(x0, y0, methodNumber);
+                    Invoke(actionP0);
+                }
+                else
+                    if (!limitReachedExeption)
+                    {
+                        limitReachedExeption = true;
+                        MessageBox.Show("Деякі значення точок занадто великі або малі. Ці значення не будуть відображені на графіку",
+                            "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+            }
             int xmaxDC = GetDecimalDigitsCount(xmax);
             if (xmaxDC < GetDecimalDigitsCount(h))
                 xmaxDC = GetDecimalDigitsCount(h);
@@ -868,51 +917,53 @@ namespace Курсова
                 double pointsCount = (xmax - xmin) / h;
                 double newStep = pointsCount / (double)Properties.Settings.Default.maxPointsAtChart;
 
-                (double y1, bool error) = rk(f, x0, y0, h, methodNumber);
-                points.Add(new double[] { x0 + h, y1 });
-                xmin += h;
+                (double y1, bool error) = rk(f, x0, y0, xmin, h, methodNumber);
+                if (Round(x0, xminDC) >= Round(xmin, xminDC))
+                    points.Add(new double[] { x0 + h, y1 });
+                //x0 += h;
+                double x1 = x0 + h;
                 if (!error && !stopFlag)
-                    while (Round(xmin, xminDC) + h <= Round(xmax, xmaxDC))
+                    while (Round(x1, xminDC) + h <= Round(xmax, xmaxDC))
                     {
-                        double x1 = x0 + h;
                         double dp = der(f, x0, y0);
                         double dc = der(f, x1, y1);
                         double y = y1 + 3.0 / 2.0 * h * dc - 1.0 / 2.0 * h * dp;
 
                         x0 += h;
-                        x1 += h;
+                        x1 += h;//?
                         y0 = y1;
                         y1 = y;
-                        xmin += h;
-
-                        Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x1, dpx).ToString("G6")) + "\t " + Round(y1, dpy).ToString("G6"));
-                        listBox.Invoke(action1);
-                        points.Add(new double[] { x1, y1 });
-                        if (x1 < 1.0E+28 && y1 < 1.0E+28)
+                        if (Round(x1, xminDC) >= Round(xmin, xminDC))
                         {
-                            if (pointsCount > (double)Properties.Settings.Default.maxPointsAtChart)
+                            Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x1, dpx).ToString("G6")) + "\t " + Round(y1, dpy).ToString("G6"));
+                            listBox.Invoke(action1);
+                            points.Add(new double[] { x1, y1 });
+                            if ((Abs(x1) > 1.0E-28 || x1 == 0) && (Abs(y1) > 1.0E-28 || y1 == 0) && Abs(x1) < 1.0E+28 && Abs(y1) < 1.0E+28)
                             {
-                                j++;
-                                if (j > k || j == pointsCount)
+                                if (pointsCount > (double)Properties.Settings.Default.maxPointsAtChart)
                                 {
-                                    k += newStep;
+                                    j++;
+                                    if (j > k || j == pointsCount)
+                                    {
+                                        k += newStep;
+                                        Action actionP1 = () => addPointToChart(Round(x1, dpx), y1, methodNumber);
+                                        Invoke(actionP1);
+                                    }
+                                }
+                                else
+                                {
                                     Action actionP1 = () => addPointToChart(Round(x1, dpx), y1, methodNumber);
                                     Invoke(actionP1);
                                 }
                             }
                             else
                             {
-                                Action actionP1 = () => addPointToChart(Round(x1, dpx), y1, methodNumber);
-                                Invoke(actionP1);
-                            }
-                        }
-                        else
-                        {
-                            if (!limitReachedExeption)
-                            {
-                                limitReachedExeption = true;
-                                MessageBox.Show("Деякі значення точок виявилися занадто великими. Ці значення не будуть відображені на графіку",
-                                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                if (!limitReachedExeption)
+                                {
+                                    limitReachedExeption = true;
+                                    MessageBox.Show("Деякі значення точок занадто великі або малі. Ці значення не будуть відображені на графіку",
+                                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
                             }
                         }
                         DialogResult result = DialogResult.None;
@@ -1145,15 +1196,15 @@ namespace Курсова
             TextBox textBox = (TextBox)sender;
             if (textBox.ForeColor != TextBox.DefaultForeColor)
             {
-                if (textBox.Name == "textBox2" && textBox.Text == Properties.Settings.Default.defaultX0)
+                if (textBox.Name == "textBox2")
                     textBox.Text = "";
-                else if (textBox.Name == "textBox3" && textBox.Text == Properties.Settings.Default.defaultY0)
+                else if (textBox.Name == "textBox3")
                     textBox.Text = "";
-                else if (textBox.Name == "textBox4" && textBox.Text == Properties.Settings.Default.defaultXmin)
+                else if (textBox.Name == "textBox4")
                     textBox.Text = "";
-                else if (textBox.Name == "textBox5" && textBox.Text == Properties.Settings.Default.defaultXmax)
+                else if (textBox.Name == "textBox5")
                     textBox.Text = "";
-                else if (textBox.Name == "textBox6" && textBox.Text == Properties.Settings.Default.defaultH)
+                else if (textBox.Name == "textBox6")
                     textBox.Text = "";
             }
             textBox.ForeColor = TextBox.DefaultForeColor;
@@ -1162,7 +1213,7 @@ namespace Курсова
         private void addPlaceHolder(object sender, EventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            if (string.IsNullOrWhiteSpace(textBox.Text))
+            if (string.IsNullOrWhiteSpace(textBox.Text) && Properties.Settings.Default.useDefaultConditions)
             {
                 if (textBox.Name == "textBox2")
                     textBox.Text = Properties.Settings.Default.defaultX0;
@@ -1178,59 +1229,31 @@ namespace Курсова
             }
         }
 
-        private void assignPlaceHolder()
-        {
-            textBox2.GotFocus += removePlaceHolder;
-            textBox3.GotFocus += removePlaceHolder;
-            textBox4.GotFocus += removePlaceHolder;
-            textBox5.GotFocus += removePlaceHolder;
-            textBox6.GotFocus += removePlaceHolder;
-            textBox2.LostFocus += addPlaceHolder;
-            textBox3.LostFocus += addPlaceHolder;
-            textBox4.LostFocus += addPlaceHolder;
-            textBox5.LostFocus += addPlaceHolder;
-            textBox6.LostFocus += addPlaceHolder;
-        }
-
-        private void unassignPlaceHolder()
-        {
-            textBox2.GotFocus -= removePlaceHolder;
-            textBox3.GotFocus -= removePlaceHolder;
-            textBox4.GotFocus -= removePlaceHolder;
-            textBox5.GotFocus -= removePlaceHolder;
-            textBox6.GotFocus -= removePlaceHolder;
-            textBox2.LostFocus -= addPlaceHolder;
-            textBox3.LostFocus -= addPlaceHolder;
-            textBox4.LostFocus -= addPlaceHolder;
-            textBox5.LostFocus -= addPlaceHolder;
-            textBox6.LostFocus -= addPlaceHolder;
-        }
-
         private void initConditions()
         {
             if (Properties.Settings.Default.useDefaultConditions)
             {
-                if (textBox2.Text == "" && !textBox2.ContainsFocus)
+                if ((textBox2.Text == "" || textBox2.ForeColor == Color.Gray) && !textBox2.ContainsFocus)
                 {
                     textBox2.Text = Properties.Settings.Default.defaultX0;
                     textBox2.ForeColor = Color.Gray;
                 }
-                if (textBox3.Text == "" && !textBox3.ContainsFocus)
+                if ((textBox3.Text == "" || textBox3.ForeColor == Color.Gray) && !textBox3.ContainsFocus)
                 {
                     textBox3.Text = Properties.Settings.Default.defaultY0;
                     textBox3.ForeColor = Color.Gray;
                 }
-                if (textBox4.Text == "" && !textBox4.ContainsFocus)
+                if ((textBox4.Text == "" || textBox4.ForeColor == Color.Gray) && !textBox4.ContainsFocus)
                 {
                     textBox4.Text = Properties.Settings.Default.defaultXmin;
                     textBox4.ForeColor = Color.Gray;
                 }
-                if (textBox5.Text == "" && !textBox5.ContainsFocus)
+                if ((textBox5.Text == "" || textBox5.ForeColor == Color.Gray) && !textBox5.ContainsFocus)
                 {
                     textBox5.Text = Properties.Settings.Default.defaultXmax;
                     textBox5.ForeColor = Color.Gray;
                 }
-                if (textBox6.Text == "" && !textBox6.ContainsFocus)
+                if ((textBox6.Text == "" || textBox6.ForeColor == Color.Gray) && !textBox6.ContainsFocus)
                 {
                     textBox6.Text = Properties.Settings.Default.defaultH;
                     textBox6.ForeColor = Color.Gray;
@@ -1239,11 +1262,11 @@ namespace Курсова
             }
             else
             {
-                if (textBox2.Text == Properties.Settings.Default.defaultX0 && textBox2.ForeColor != TextBox.DefaultForeColor) textBox2.Text = "";
-                if (textBox3.Text == Properties.Settings.Default.defaultY0 && textBox3.ForeColor != TextBox.DefaultForeColor) textBox3.Text = "";
-                if (textBox4.Text == Properties.Settings.Default.defaultXmin && textBox4.ForeColor != TextBox.DefaultForeColor) textBox4.Text = "";
-                if (textBox5.Text == Properties.Settings.Default.defaultXmax && textBox5.ForeColor != TextBox.DefaultForeColor) textBox5.Text = "";
-                if (textBox6.Text == Properties.Settings.Default.defaultH && textBox6.ForeColor != TextBox.DefaultForeColor) textBox6.Text = "";
+                if (textBox2.ForeColor != TextBox.DefaultForeColor) textBox2.Text = "";
+                if (textBox3.ForeColor != TextBox.DefaultForeColor) textBox3.Text = "";
+                if (textBox4.ForeColor != TextBox.DefaultForeColor) textBox4.Text = "";
+                if (textBox5.ForeColor != TextBox.DefaultForeColor) textBox5.Text = "";
+                if (textBox6.ForeColor != TextBox.DefaultForeColor) textBox6.Text = "";
                 textBox2.ForeColor = textBox3.ForeColor = textBox4.ForeColor = textBox5.ForeColor = textBox6.ForeColor = TextBox.DefaultForeColor;
             }
         }
