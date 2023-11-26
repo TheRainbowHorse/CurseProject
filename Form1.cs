@@ -203,16 +203,26 @@ namespace Курсова
             {
                 if (Properties.Settings.Default.useDefaultConditions)
                 {
-                    xmin = double.Parse(Properties.Settings.Default.defaultXmin.Replace('.', ','));
-                    xmax = double.Parse(Properties.Settings.Default.defaultXmax.Replace('.', ','));
-                    y0 = double.Parse(Properties.Settings.Default.defaultY0.Replace('.', ','));
-                    x0 = double.Parse(Properties.Settings.Default.defaultX0.Replace('.', ','));
-                    h = double.Parse(Properties.Settings.Default.defaultH.Replace('.', ','));
-                    if (!String.IsNullOrEmpty(textBox2.Text)) x0 = double.Parse(textBox2.Text.Replace('.', ','));
-                    if (!String.IsNullOrEmpty(textBox3.Text)) y0 = double.Parse(textBox3.Text.Replace('.', ','));
-                    if (!String.IsNullOrEmpty(textBox4.Text)) xmin = double.Parse(textBox4.Text.Replace('.', ','));
-                    if (!String.IsNullOrEmpty(textBox5.Text)) xmax = double.Parse(textBox5.Text.Replace('.', ','));
-                    if (!String.IsNullOrEmpty(textBox6.Text)) h = double.Parse(textBox6.Text.Replace('.', ','));
+                    if (Properties.Settings.Default.defaultX0 != "" && !String.IsNullOrEmpty(textBox2.Text))
+                        x0 = double.Parse(Properties.Settings.Default.defaultX0.Replace('.', ','));
+                    else
+                        x0 = double.Parse(textBox2.Text.Replace('.', ','));
+                    if (Properties.Settings.Default.defaultY0 != "" && !String.IsNullOrEmpty(textBox2.Text))
+                        y0 = double.Parse(Properties.Settings.Default.defaultY0.Replace('.', ','));
+                    else
+                        y0 = double.Parse(textBox3.Text.Replace('.', ','));
+                    if (Properties.Settings.Default.defaultXmin != "" && !String.IsNullOrEmpty(textBox2.Text))
+                        xmin = double.Parse(Properties.Settings.Default.defaultXmin.Replace('.', ','));
+                    else
+                        xmin = double.Parse(textBox4.Text.Replace('.', ','));
+                    if (Properties.Settings.Default.defaultXmax != "" && !String.IsNullOrEmpty(textBox2.Text))
+                        xmax = double.Parse(Properties.Settings.Default.defaultXmax.Replace('.', ','));
+                    else
+                        xmax = double.Parse(textBox5.Text.Replace('.', ','));
+                    if (Properties.Settings.Default.defaultH != "" && !String.IsNullOrEmpty(textBox2.Text))
+                        h = double.Parse(Properties.Settings.Default.defaultH.Replace('.', ','));
+                    else
+                        h = double.Parse(textBox6.Text.Replace('.', ','));
                 }
                 else
                 {
@@ -1170,7 +1180,7 @@ namespace Курсова
 
         private void showManyMethodsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormModalShowManyMethods modal = new FormModalShowManyMethods();
+            FormModalMethods modal = new FormModalMethods();
             modal.ShowDialog();
             showMethods();
         }

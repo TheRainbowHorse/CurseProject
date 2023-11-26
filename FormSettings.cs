@@ -140,7 +140,7 @@ namespace Курсова
 
         private void buttonShowManyMethods_Click(object sender, EventArgs e)
         {
-            FormModalShowManyMethods modal = new FormModalShowManyMethods();
+            FormModalMethods modal = new FormModalMethods();
             modal.ShowDialog();
         }
 

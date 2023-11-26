@@ -105,7 +105,6 @@ c:\Курсова\obj\Debug\Diff.csproj.AssemblyReference.cache
 c:\Курсова\obj\Debug\Курсова.AboutBox.resources
 c:\Курсова\obj\Debug\Курсова.Form1.resources
 c:\Курсова\obj\Debug\Курсова.FormHelp.resources
-c:\Курсова\obj\Debug\Курсова.FormModalShowManyMethods.resources
 c:\Курсова\obj\Debug\Курсова.FormChart.resources
 c:\Курсова\obj\Debug\Курсова.FormSettings.resources
 c:\Курсова\obj\Debug\Курсова.Properties.Resources.resources
@@ -114,3 +113,4 @@ c:\Курсова\obj\Debug\Diff.csproj.CoreCompileInputs.cache
 c:\Курсова\obj\Debug\Diff.csproj.CopyComplete
 c:\Курсова\obj\Debug\Курсова.exe
 c:\Курсова\obj\Debug\Курсова.pdb
+C:\Курсова\obj\Debug\Курсова.FormModalMethods.resources

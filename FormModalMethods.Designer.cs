@@ -1,7 +1,7 @@
 ﻿
 namespace Курсова
 {
-    partial class FormModalShowManyMethods
+    partial class FormModalMethods
     {
         /// <summary>
         /// Required designer variable.

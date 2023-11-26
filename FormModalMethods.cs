@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Курсова
 {
-    public partial class FormModalShowManyMethods : Form
+    public partial class FormModalMethods : Form
     {
-        public FormModalShowManyMethods()
+        public FormModalMethods()
         {
             InitializeComponent();
         }
