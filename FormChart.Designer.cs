@@ -100,6 +100,7 @@ namespace Курсова
             this.chartF1.TabIndex = 6;
             this.chartF1.Text = "chart1";
             this.chartF1.AxisViewChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ViewEventArgs>(this.chartF1_AxisViewChanged);
+            this.chartF1.MouseLeave += new System.EventHandler(this.chartF1_MouseLeave);
             this.chartF1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chartF1_MouseMove);
             // 
             // button2

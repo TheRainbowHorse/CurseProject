@@ -29,8 +29,10 @@ namespace Курсова
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBoxHelpWindowOnStart = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBoxUseDefaultConditions = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -45,6 +47,7 @@ namespace Курсова
             this.textBoxX0 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkBoxMultiSelect = new System.Windows.Forms.CheckBox();
             this.checkBoxIsIterationLimited = new System.Windows.Forms.CheckBox();
             this.numericUpDownIterationLimit = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -121,6 +124,7 @@ namespace Курсова
             // tabPage1
             // 
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage1.Controls.Add(this.checkBoxHelpWindowOnStart);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(104, 4);
@@ -130,6 +134,18 @@ namespace Курсова
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Умови";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxHelpWindowOnStart
+            // 
+            this.checkBoxHelpWindowOnStart.AutoSize = true;
+            this.checkBoxHelpWindowOnStart.Checked = global::Курсова.Properties.Settings.Default.hideHelpWindowOnStart;
+            this.checkBoxHelpWindowOnStart.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Курсова.Properties.Settings.Default, "hideHelpWindowOnStart", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBoxHelpWindowOnStart.Location = new System.Drawing.Point(24, 262);
+            this.checkBoxHelpWindowOnStart.Name = "checkBoxHelpWindowOnStart";
+            this.checkBoxHelpWindowOnStart.Size = new System.Drawing.Size(342, 17);
+            this.checkBoxHelpWindowOnStart.TabIndex = 2;
+            this.checkBoxHelpWindowOnStart.Text = "Приховати cповіщення про довідку при запуску програми";
+            this.checkBoxHelpWindowOnStart.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -147,7 +163,7 @@ namespace Курсова
             this.groupBox1.Controls.Add(this.textBoxX0);
             this.groupBox1.Location = new System.Drawing.Point(6, 43);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(583, 129);
+            this.groupBox1.Size = new System.Drawing.Size(583, 204);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Значення за замовчуванням";
@@ -169,16 +185,16 @@ namespace Курсова
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(207, 86);
+            this.label5.Location = new System.Drawing.Point(30, 142);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(38, 13);
+            this.label5.Size = new System.Drawing.Size(184, 13);
             this.label5.TabIndex = 5;
-            this.label5.Text = "xmax:";
+            this.label5.Text = "Максимальне значення x (xmax):";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(368, 58);
+            this.label6.Location = new System.Drawing.Point(30, 170);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 6;
@@ -187,7 +203,7 @@ namespace Курсова
             // textBoxH
             // 
             this.textBoxH.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "defaultH", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxH.Location = new System.Drawing.Point(428, 55);
+            this.textBoxH.Location = new System.Drawing.Point(220, 167);
             this.textBoxH.Name = "textBoxH";
             this.textBoxH.Size = new System.Drawing.Size(100, 22);
             this.textBoxH.TabIndex = 4;
@@ -196,7 +212,7 @@ namespace Курсова
             // textBoxXmax
             // 
             this.textBoxXmax.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "defaultXmax", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxXmax.Location = new System.Drawing.Point(251, 83);
+            this.textBoxXmax.Location = new System.Drawing.Point(220, 139);
             this.textBoxXmax.Name = "textBoxXmax";
             this.textBoxXmax.Size = new System.Drawing.Size(100, 22);
             this.textBoxXmax.TabIndex = 3;
@@ -205,16 +221,16 @@ namespace Курсова
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(207, 58);
+            this.label4.Location = new System.Drawing.Point(30, 114);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.Size = new System.Drawing.Size(170, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "xmin:";
+            this.label4.Text = "Мінімальне значення x (xmin):";
             // 
             // textBoxXmin
             // 
             this.textBoxXmin.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "defaultXmin", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxXmin.Location = new System.Drawing.Point(251, 55);
+            this.textBoxXmin.Location = new System.Drawing.Point(220, 111);
             this.textBoxXmin.Name = "textBoxXmin";
             this.textBoxXmin.Size = new System.Drawing.Size(100, 22);
             this.textBoxXmin.TabIndex = 2;
@@ -225,14 +241,14 @@ namespace Курсова
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(30, 86);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(22, 13);
+            this.label3.Size = new System.Drawing.Size(152, 13);
             this.label3.TabIndex = 3;
-            this.label3.Text = "y0:";
+            this.label3.Text = "Початкове значення y (y0):";
             // 
             // textBoxY0
             // 
             this.textBoxY0.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "defaultY0", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxY0.Location = new System.Drawing.Point(74, 83);
+            this.textBoxY0.Location = new System.Drawing.Point(220, 83);
             this.textBoxY0.Name = "textBoxY0";
             this.textBoxY0.Size = new System.Drawing.Size(100, 22);
             this.textBoxY0.TabIndex = 1;
@@ -243,14 +259,14 @@ namespace Курсова
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(30, 58);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(22, 13);
+            this.label2.Size = new System.Drawing.Size(152, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "x0:";
+            this.label2.Text = "Початкове значення x (x0):";
             // 
             // textBoxX0
             // 
             this.textBoxX0.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Курсова.Properties.Settings.Default, "defaultX0", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxX0.Location = new System.Drawing.Point(74, 55);
+            this.textBoxX0.Location = new System.Drawing.Point(220, 55);
             this.textBoxX0.Name = "textBoxX0";
             this.textBoxX0.Size = new System.Drawing.Size(100, 22);
             this.textBoxX0.TabIndex = 0;
@@ -268,6 +284,7 @@ namespace Курсова
             // tabPage2
             // 
             this.tabPage2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage2.Controls.Add(this.checkBoxMultiSelect);
             this.tabPage2.Controls.Add(this.checkBoxIsIterationLimited);
             this.tabPage2.Controls.Add(this.numericUpDownIterationLimit);
             this.tabPage2.Controls.Add(this.groupBox2);
@@ -281,6 +298,19 @@ namespace Курсова
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Розразунок";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxMultiSelect
+            // 
+            this.checkBoxMultiSelect.AutoSize = true;
+            this.checkBoxMultiSelect.Checked = global::Курсова.Properties.Settings.Default.multiSelect;
+            this.checkBoxMultiSelect.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxMultiSelect.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::Курсова.Properties.Settings.Default, "multiSelect", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkBoxMultiSelect.Location = new System.Drawing.Point(31, 186);
+            this.checkBoxMultiSelect.Name = "checkBoxMultiSelect";
+            this.checkBoxMultiSelect.Size = new System.Drawing.Size(173, 17);
+            this.checkBoxMultiSelect.TabIndex = 6;
+            this.checkBoxMultiSelect.Text = "Спілне виділення у списках";
+            this.checkBoxMultiSelect.UseVisualStyleBackColor = true;
             // 
             // checkBoxIsIterationLimited
             // 
@@ -689,10 +719,12 @@ namespace Курсова
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSettings";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Налаштування";
             this.Load += new System.EventHandler(this.FormSettings_Load);
@@ -777,5 +809,7 @@ namespace Курсова
         private System.Windows.Forms.CheckBox checkBoxCopyByClick;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox checkBoxMultiSelect;
+        private System.Windows.Forms.CheckBox checkBoxHelpWindowOnStart;
     }
 }

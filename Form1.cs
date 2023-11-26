@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using static System.Math;
@@ -23,6 +24,7 @@ namespace Курсова
         MySettings settings = new MySettings();
 
         bool limitReachedExeption = false;
+        bool initConditionsError = false;
 
         private Conditions conditions;
         public Form1()
@@ -35,16 +37,11 @@ namespace Курсова
         {
             settings.apply();
 
-            this.Width = 666;
-            panel1.Width = 159 * 2;
-            panelChart.Width = this.Width - panel1.Width - 12 - 20;
-
-            panel2.Visible = false;
-            panel3.Visible = false;
             //panel1.Location = new Point(611, 44);
             comboBox1.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
             comboBox3.SelectedIndex = 0;
+            searchToolStripComboBox.SelectedIndex = 0;
 
             textBox2.GotFocus += textBoxAutoSizeOn; textBox2.LostFocus += textBoxAutoSizeOff; textBox2.TextChanged += textBoxAutoSizeOn;
             textBox3.GotFocus += textBoxAutoSizeOn; textBox3.LostFocus += textBoxAutoSizeOff; textBox3.TextChanged += textBoxAutoSizeOn;
@@ -76,6 +73,22 @@ namespace Курсова
             chart1.ChartAreas[0].CursorY.LineWidth = 1;
 
             saveFileDialog1.RestoreDirectory = true;
+
+            listSearchToolStripTextBox.TextChanged += listSearch;
+            listSearchToolStripTextBox.LostFocus += (sndr, ev) => { listSearchToolStripTextBox.Text = ""; };
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            DialogResult result = DialogResult.None;
+            if (!Properties.Settings.Default.hideHelpWindowOnStart)
+                result = MessageBox.Show("Перед початком роботи з програмою рекомендуємо прочитати довідку з використання. " +
+                    "Перейти до довідки?", "Information", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+            if (result == DialogResult.Yes)
+            {
+                FormHelp formHelp = new FormHelp();
+                formHelp.ShowDialog();
+            }
         }
 
         private class Conditions
@@ -127,6 +140,27 @@ namespace Курсова
                 if (f.chart1.Series[0].Points.Count != 0)
                     f.chart1.Legends[0].Enabled = !Properties.Settings.Default.hideLegend;
 
+                foreach (Form f in Application.OpenForms)
+                {
+                    if (f.Name == "FormChart")
+                    {
+                        FormChart fc = (FormChart)f;
+                        if (Properties.Settings.Default.showMarker)
+                            foreach (var series in fc.chartF1.Series)
+                                series.MarkerStyle = MarkerStyle.Circle;
+                        else
+                            foreach (var series in fc.chartF1.Series)
+                                series.MarkerStyle = MarkerStyle.None;
+
+                        fc.chartF1.ChartAreas[0].AxisY.LabelStyle.Format = "0.";
+                        for (int i = 0; i < Properties.Settings.Default.decimalPlacesChartY; i++)
+                            fc.chartF1.ChartAreas[0].AxisY.LabelStyle.Format = fc.chartF1.ChartAreas[0].AxisY.LabelStyle.Format + "0";
+
+                        if (fc.chartF1.Series[0].Points.Count != 0)
+                            fc.chartF1.Legends[0].Enabled = !Properties.Settings.Default.hideLegend;
+                    }
+                }
+
                 f.showMethods();
 
                 f.initConditions();
@@ -141,6 +175,12 @@ namespace Курсова
                 MessageBox.Show("Введіть рівняння", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (textBox6.Text.Contains('-'))
+            {
+                textBox6.Focus();
+                MessageBox.Show("Крок не може бути від'ємним", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             double xmin;
             double xmax;
@@ -148,9 +188,12 @@ namespace Курсова
             double x0;
             double h;
 
-            button1.Enabled = false;
             button3.Enabled = true;
             button3.Focus();
+            panelConditions.Enabled = false;
+            showManyMethodsToolStripMenuItem.Enabled = false;
+            settingsToolStripMenuItem.Enabled = false;
+            listContextMenuStrip.Enabled = false;
             finished = 2 - Properties.Settings.Default.countOfMethods;
             _event.Reset();
             limitStopFlag = false;
@@ -184,8 +227,11 @@ namespace Курсова
             catch
             {
                 MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                button1.Enabled = true;
                 button3.Enabled = false;
+                panelConditions.Enabled = true;
+                showManyMethodsToolStripMenuItem.Enabled = true;
+                settingsToolStripMenuItem.Enabled = true;
+                listContextMenuStrip.Enabled = true;
                 return;
             }
             string equation = textBox1.Text;//x+cos(y/sqrt(0.7))
@@ -281,8 +327,7 @@ namespace Курсова
 
         string calculate(string equation)//When expression contains "()", "sin()", "sqrt()" etc.
         {
-            equation = equation.ToLower()
-                .Replace('.', ',')
+            equation = equation.Replace('.', ',')
                 .Replace(" ", "")
                 .Replace("abs", "a")
                 .Replace("sin", "s")
@@ -293,7 +338,9 @@ namespace Курсова
                 .Replace("cbrt", "b")
                 .Replace("rt", "r")
                 .Replace("log", "l")
-                .Replace("ln", "n");
+                .Replace("ln", "n")
+                .Replace("e", E.ToString())
+                .Replace("pi", PI.ToString());
 
             for (int i = 0; i < equation.Length; i++)
             {
@@ -494,7 +541,7 @@ namespace Курсова
 
         double der(string f, double x, double y)
         {
-            return double.Parse(calculate(f.Replace("x", Convert.ToString(x)).Replace("y", Convert.ToString(y))));
+            return double.Parse(calculate(f.ToLower().Replace("x", Convert.ToString(x)).Replace("y", Convert.ToString(y))));
         }
 
         void euler(string f, double x0, double y0, double xmin, double xmax, double h, int methodNumber)
@@ -549,6 +596,7 @@ namespace Курсова
                 double newStep = pointsCount / (double)Properties.Settings.Default.maxPointsAtChart;
                 while (Round(x0, xminDC) + h <= Round(xmax, xmaxDC))
                 {
+                    Thread.Sleep(new TimeSpan(10000));
                     double df = der(f, x0, y0);
                     double dfn = der(f, x0 + h, df * h + y0);
                     double y = y0 + (df + dfn) * h / 2; //x*y+y^5-r3(x)
@@ -557,7 +605,11 @@ namespace Курсова
                     y0 = y;
                     if (Round(x0, xminDC) >= Round(xmin, xminDC))
                     {
-                        Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
+                        Action action1 = () =>
+                        {
+                            listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
+                            listBox.TopIndex = i - 23;
+                        };
                         listBox.Invoke(action1);
                         points.Add(new double[] { x0, y0 });
                         if ((Abs(x0) > 1.0E-28 || x0 == 0) && (Abs(y0) > 1.0E-28 || y0 == 0) && Abs(x0) < 1.0E+28 && Abs(y0) < 1.0E+28)
@@ -588,9 +640,9 @@ namespace Курсова
                             }
                         }
                     }
-                    DialogResult result = DialogResult.None;
                     if (Properties.Settings.Default.isIterationLimited && i == Properties.Settings.Default.iterationLimit)
                     {
+                        DialogResult result = DialogResult.None;
                         if (methodNumber != 1)
                             _event.WaitOne();
                         if (limitStopFlag)
@@ -611,28 +663,44 @@ namespace Курсова
                             _event.Set();
                         }
                     }
+                    if (Double.IsInfinity(y0))
+                        break;
                     if (stopFlag) break;
                     i++;
                 }
             }
             catch
             {
-                MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!initConditionsError)
+                {
+                    initConditionsError = true;
+                    MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            Action actionEnd = () => listBox.TopIndex = listBox.Items.Count - 1;
+            listBox.Invoke(actionEnd);
+
             this.points[methodNumber - 1].AddRange(points);
             if (++finished == 2)
             {
-                Action actionB1 = () => button1.Enabled = true;
-                button1.Invoke(actionB1);
-                actionB1 = () => button1.Focus();
-                button1.Invoke(actionB1);
-                Action actionB3 = () => button3.Enabled = false;
-                button3.Invoke(actionB3);
+                Action actionFinish = () =>
+                {
+                    panelConditions.Enabled = true;
+                    button1.Focus();
+                    button3.Enabled = false;
+                    panelConditions.Enabled = true;
+                    showManyMethodsToolStripMenuItem.Enabled = true;
+                    settingsToolStripMenuItem.Enabled = true;
+                    listContextMenuStrip.Enabled = true;
+                };
+                Invoke(actionFinish);
 
                 limitReachedExeption = false;
+                initConditionsError = false;
                 stopFlag = false;
             }
         }
+        
         void euler(Object obj)
         {
             Conditions cond = obj as Conditions;
@@ -691,6 +759,7 @@ namespace Курсова
                 double newStep = pointsCount / (double)Properties.Settings.Default.maxPointsAtChart;
                 while (Round(x0, xminDC) + h <= Round(xmax, xmaxDC))
                 {
+                    Thread.Sleep(new TimeSpan(10000));
                     double df = der(f, x0, y0);
                     double dk2 = der(f, x0 + h / 2, y0 + h / 2 * df);
                     double dk3 = der(f, x0 + h / 2, y0 + h / 2 * dk2);
@@ -702,7 +771,11 @@ namespace Курсова
 
                     if (Round(x0, xminDC) >= Round(xmin, xminDC))
                     {
-                        Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
+                        Action action1 = () =>
+                        {
+                            listBox.Items.Add(Convert.ToString(Round(x0, dpx).ToString("G6")) + "\t " + Round(y0, dpy).ToString("G6"));
+                            listBox.TopIndex = i - 23;
+                        };
                         listBox.Invoke(action1);
                         points.Add(new double[] { x0, y0 });
                         if ((Abs(x0) > 1.0E-28 || x0 == 0) && (Abs(y0) > 1.0E-28 || y0 == 0) && Abs(x0) < 1.0E+28 && Abs(y0) < 1.0E+28)
@@ -733,9 +806,9 @@ namespace Курсова
                             }
                         }
                     }
-                    DialogResult result = DialogResult.None;
                     if (Properties.Settings.Default.isIterationLimited && i == Properties.Settings.Default.iterationLimit)
                     {
+                        DialogResult result = DialogResult.None;
                         if (methodNumber != 1)
                             _event.WaitOne();
                         if (limitStopFlag)
@@ -756,24 +829,40 @@ namespace Курсова
                             _event.Set();
                         }
                     }
+                    if (Double.IsInfinity(y0))
+                        break;
                     if (stopFlag) break;
                     i++;
                 }
             }
             catch
             {
-                MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!initConditionsError)
+                {
+                    initConditionsError = true;
+                    MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            Action actionEnd = () => listBox.TopIndex = listBox.Items.Count - 1;
+            listBox.Invoke(actionEnd);
+
             this.points[methodNumber - 1].AddRange(points);
             if (++finished == 2)
             {
-                Action actionB1 = () => button1.Enabled = true;
-                button1.Invoke(actionB1);
-                actionB1 = () => button1.Focus();
-                button1.Invoke(actionB1);
-                Action actionB3 = () => button3.Enabled = false;
-                button3.Invoke(actionB3);
+                Action actionFinish = () =>
+                {
+                    panelConditions.Enabled = true;
+                    button1.Focus();
+                    button3.Enabled = false;
+                    panelConditions.Enabled = true;
+                    showManyMethodsToolStripMenuItem.Enabled = true;
+                    settingsToolStripMenuItem.Enabled = true;
+                    listContextMenuStrip.Enabled = true;
+                };
+                Invoke(actionFinish);
 
+                initConditionsError = false;
+                limitReachedExeption = false;
                 stopFlag = false;
             }
         }
@@ -783,6 +872,7 @@ namespace Курсова
             bool error = false;
             try
             {
+                Thread.Sleep(new TimeSpan(10000));
                 int i = 1; //iteration number
                 double df = der(f, x0, y0);
                 double dk2 = der(f, x0 + h / 2, y0 + h / 2 * df);
@@ -828,9 +918,9 @@ namespace Курсова
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-                DialogResult result = DialogResult.None;
                 if (Properties.Settings.Default.isIterationLimited && i == Properties.Settings.Default.iterationLimit)
                 {
+                        DialogResult result = DialogResult.None;
                     if (methodNumber != 1)
                         _event.WaitOne();
                     if (limitStopFlag)
@@ -851,11 +941,17 @@ namespace Курсова
                         _event.Set();
                     }
                 }
+                if (Double.IsInfinity(y0))
+                    error = true;
             }
             catch
             {
                 error = true;
-                MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!initConditionsError)
+                {
+                    initConditionsError = true;
+                    MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             return (y, error);
         }
@@ -925,6 +1021,7 @@ namespace Курсова
                 if (!error && !stopFlag)
                     while (Round(x1, xminDC) + h <= Round(xmax, xmaxDC))
                     {
+                        Thread.Sleep(new TimeSpan(10000));
                         double dp = der(f, x0, y0);
                         double dc = der(f, x1, y1);
                         double y = y1 + 3.0 / 2.0 * h * dc - 1.0 / 2.0 * h * dp;
@@ -935,7 +1032,11 @@ namespace Курсова
                         y1 = y;
                         if (Round(x1, xminDC) >= Round(xmin, xminDC))
                         {
-                            Action action1 = () => listBox.Items.Add(Convert.ToString(Round(x1, dpx).ToString("G6")) + "\t " + Round(y1, dpy).ToString("G6"));
+                            Action action1 = () =>
+                            {
+                                listBox.Items.Add(Convert.ToString(Round(x1, dpx).ToString("G6")) + "\t " + Round(y1, dpy).ToString("G6"));
+                                listBox.TopIndex = i - 23;
+                            };
                             listBox.Invoke(action1);
                             points.Add(new double[] { x1, y1 });
                             if ((Abs(x1) > 1.0E-28 || x1 == 0) && (Abs(y1) > 1.0E-28 || y1 == 0) && Abs(x1) < 1.0E+28 && Abs(y1) < 1.0E+28)
@@ -966,9 +1067,9 @@ namespace Курсова
                                 }
                             }
                         }
-                        DialogResult result = DialogResult.None;
                         if (Properties.Settings.Default.isIterationLimited && i == Properties.Settings.Default.iterationLimit)
                         {
+                            DialogResult result = DialogResult.None;
                             if (methodNumber != 1)
                                 _event.WaitOne();
                             if (limitStopFlag)
@@ -989,24 +1090,40 @@ namespace Курсова
                                 _event.Set();
                             }
                         }
+                        if (Double.IsInfinity(y0))
+                            break;
                         if (stopFlag) break;
                         i++;
                     }
             }
             catch
             {
-                MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!initConditionsError)
+                {
+                    initConditionsError = true;
+                    MessageBox.Show("Помилка в початкових умовах", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            Action actionEnd = () => listBox.TopIndex = listBox.Items.Count - 1;
+            listBox.Invoke(actionEnd);
+
             this.points[methodNumber - 1].AddRange(points);
             if (++finished == 2)
             {
-                Action actionB1 = () => button1.Enabled = true;
-                button1.Invoke(actionB1);
-                actionB1 = () => button1.Focus();
-                button1.Invoke(actionB1);
-                Action actionB3 = () => button3.Enabled = false;
-                button3.Invoke(actionB3);
+                Action actionFinish = () =>
+                {
+                    panelConditions.Enabled = true;
+                    button1.Focus();
+                    button3.Enabled = false;
+                    panelConditions.Enabled = true;
+                    showManyMethodsToolStripMenuItem.Enabled = true;
+                    settingsToolStripMenuItem.Enabled = true;
+                    listContextMenuStrip.Enabled = true;
+                };
+                Invoke(actionFinish);
 
+                initConditionsError = false;
+                limitReachedExeption = false;
                 stopFlag = false;
             }
         }
@@ -1103,35 +1220,33 @@ namespace Курсова
             panelChart.Height = this.Height - panelConditions.Height - menuStrip1.Height - 12 - 40;
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void listBoxSelectedItem(object sender, EventArgs e)
         {
-            try
+            if (Properties.Settings.Default.multiSelect)
             {
-                listBox2.SelectedIndex = listBox1.SelectedIndex;
-                listBox3.SelectedIndex = listBox1.SelectedIndex;
+                try
+                {
+                    ListBox listBox = sender as ListBox;
+                    switch (listBox.Name)
+                    {
+                        case "listBox1":
+                            listBox2.SelectedIndex = listBox1.SelectedIndex;
+                            listBox3.SelectedIndex = listBox1.SelectedIndex;
+                            break;
+                        case "listBox2":
+                            listBox1.SelectedIndex = listBox2.SelectedIndex;
+                            listBox3.SelectedIndex = listBox2.SelectedIndex;
+                            break;
+                        case "listBox3":
+                            listBox1.SelectedIndex = listBox3.SelectedIndex;
+                            listBox2.SelectedIndex = listBox3.SelectedIndex;
+                            break;
+                    }
+                }
+                catch { }
             }
-            catch { }
         }
 
-        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                listBox1.SelectedIndex = listBox2.SelectedIndex;
-                listBox3.SelectedIndex = listBox2.SelectedIndex;
-            }
-            catch { }
-        }
-
-        private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                listBox1.SelectedIndex = listBox3.SelectedIndex;
-                listBox2.SelectedIndex = listBox3.SelectedIndex;
-            }
-            catch { }
-        }
 
         private void showChartToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1276,16 +1391,25 @@ namespace Курсова
             TextBox textBox = (TextBox)sender;
             textBox.BringToFront();
             int textWidth = TextRenderer.MeasureText(textBox.Text, textBox.Font).Width;
-            if (textWidth < 22)
-                textBox.Width = 22;
+            if (textWidth < 43)
+                textBox.Width = 43;
             else
                 textBox.Width = textWidth + 4;
+            textBox.BringToFront();
+
+            System.Drawing.Drawing2D.GraphicsPath gr = new System.Drawing.Drawing2D.GraphicsPath();
+            foreach (Control c in panelConditions.Controls)
+            {
+                gr.AddRectangle(new Rectangle(c.Location, c.Size));
+            }
+            panelConditions.Region = new Region(gr);
         }
 
         private void textBoxAutoSizeOff(object sender, EventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            textBox.Width = 22;
+            textBox.Width = 43;
+            textBox.BringToFront();
         }
 
         private void chart1_MouseMove(object sender, MouseEventArgs e)
@@ -1336,8 +1460,22 @@ namespace Курсова
             if (finished == 2)
                 try
                 {
-                    if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                    DialogResult result = saveFileDialog1.ShowDialog();
+                    if (result == DialogResult.OK && floatableChartToolStripMenuItem.Checked)
+                    {
+                        foreach (Form f in Application.OpenForms)
+                        {
+                            if (f.Name == "FormChart")
+                            {
+                                FormChart fc = (FormChart)f;
+                                fc.chartF1.SaveImage(saveFileDialog1.FileName, (ChartImageFormat)saveFileDialog1.FilterIndex);
+                            }
+                        }
+                    }
+                    else if (result == DialogResult.OK)
+                    {
                         chart1.SaveImage(saveFileDialog1.FileName, (ChartImageFormat)saveFileDialog1.FilterIndex);
+                    }
                 }
                 catch
                 {
@@ -1434,53 +1572,24 @@ namespace Курсова
             }
             catch { }
         }
-        private void copyPoint(int numberOfMethod)
-        {
-            ListBox listBox = null;
-            switch (numberOfMethod)
-            {
-                case 1:
-                    listBox = listBox1;
-                    break;
-                case 2:
-                    listBox = listBox2;
-                    break;
-                case 3:
-                    listBox = listBox3;
-                    break;
-            }
-            try
-            {
-                Clipboard.SetText(listBox.Text, TextDataFormat.UnicodeText);
-            }
-            catch {}
-        }
 
         private void copyPointToolStripContextMenuItem_Click(object sender, EventArgs e)
         {
-            copyPoint(1);
-        }
-
-        private void copyPointToolStripContextMenuItem1_Click(object sender, EventArgs e)
-        {
-            copyPoint(2);
-        }
-
-        private void copyAllPoints(int numberOfMethod)
-        {
-            ListBox listBox = null;
-            switch (numberOfMethod)
+            try
             {
-                case 1:
-                    listBox = listBox1;
-                    break;
-                case 2:
-                    listBox = listBox2;
-                    break;
-                case 3:
-                    listBox = listBox3;
-                    break;
+                ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+                ContextMenuStrip contextMenu = menuItem.Owner as ContextMenuStrip;
+                ListBox listBox = contextMenu.SourceControl.Controls[1] as ListBox;
+                Clipboard.SetText(listBox.Text, TextDataFormat.UnicodeText);
             }
+            catch { }
+        }
+
+        private void copyAllPointsToolStripContextMenuItem_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+            ContextMenuStrip contextMenu = menuItem.Owner as ContextMenuStrip;
+            ListBox listBox = contextMenu.SourceControl.Controls[1] as ListBox;
             StringBuilder text = new StringBuilder();
             try
             {
@@ -1491,16 +1600,6 @@ namespace Курсова
                 Clipboard.SetText(text.ToString(), TextDataFormat.UnicodeText);
             }
             catch { }
-        }
-
-        private void copyAllPointsToolStripContextMenuItem_Click(object sender, EventArgs e)
-        {
-            copyAllPoints(1);
-        }
-
-        private void copyAllPointsToolStripContextMenuItem1_Click(object sender, EventArgs e)
-        {
-            copyAllPoints(2);
         }
 
         private void allowCopyByClick()
@@ -1524,6 +1623,58 @@ namespace Курсова
             FormSettings f = new FormSettings();
             if (f.ShowDialog() == DialogResult.OK)
                 settings.apply();
+        }
+
+        private void listSearch(object sender, EventArgs e)
+        {
+            try
+            {
+                ToolStripTextBox menuItem = sender as ToolStripTextBox;
+                if (menuItem.Text != "")
+                {
+                    int searchInd = searchToolStripComboBox.SelectedIndex;
+                    foreach (var listBox in new ListBox[] { listBox1, listBox2, listBox3 })
+                    {
+                        try
+                        {
+                            for (int i = 0; i < listBox.Items.Count; i++)
+                            {
+                                string itemText;
+                                string searchText;
+                                if (menuItem.Text.Replace('.', ',').Contains(','))
+                                {
+                                    itemText = listBox.Items[i].ToString().Split('\t')[searchInd];
+                                    searchText = menuItem.Text.Replace('.', ',');
+                                }
+                                else
+                                {
+                                    itemText = listBox.Items[i].ToString().Split('\t')[searchInd].Split(',')[0];
+                                    searchText = menuItem.Text;
+                                }
+                                if (itemText.Contains(searchText))
+                                {
+                                    listBox.SelectedItem = listBox.Items[i];
+                                    break;
+                                }
+                            }
+                        }
+                        catch { }
+                    }
+                }
+            }
+            catch { }
+        }
+
+        private void aboutProgramToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox about = new AboutBox();
+            about.ShowDialog();
+        }
+
+        private void helpF1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormHelp formHelp = new FormHelp();
+            formHelp.ShowDialog();
         }
     }
 }

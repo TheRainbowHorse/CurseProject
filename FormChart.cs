@@ -32,10 +32,20 @@ namespace Курсова
                 {
                     Form1 fm = (Form1)f;
                     chartF1.ContextMenuStrip = fm.chartContextMenuStrip1;
-                    if (fm.chart1.Legends[0].Enabled) chartF1.Legends[0].Enabled = true;
+                    chartF1.Legends[0].Enabled = fm.chart1.Legends[0].Enabled;
+
+                    for (int i = 0; i < fm.chart1.Series.Count; i++)
+                        chartF1.Series[i].MarkerStyle = fm.chart1.Series[i].MarkerStyle;
+
+                    chartF1.ChartAreas[0].AxisX.LabelStyle.Format = fm.chart1.ChartAreas[0].AxisX.LabelStyle.Format;
+
                     this.Owner = fm;
                 }
             this.Location = new Point(this.Owner.Location.X + f1.chart1.Location.X, this.Owner.Location.Y + f1.chart1.Location.Y);
+
+            chartF1.ChartAreas[0].AxisY.LabelStyle.Format = "0.";
+            for (int i = 0; i < Properties.Settings.Default.decimalPlacesChartY; i++)
+                chartF1.ChartAreas[0].AxisY.LabelStyle.Format = chartF1.ChartAreas[0].AxisY.LabelStyle.Format + "0";
         }
 
         private void FormChart_FormClosing(object sender, FormClosingEventArgs e)
@@ -118,9 +128,17 @@ namespace Курсова
 
         private void chartF1_MouseMove(object sender, MouseEventArgs e)
         {
+            chartF1.ChartAreas[0].CursorX.LineDashStyle = ChartDashStyle.Dot;
+            chartF1.ChartAreas[0].CursorY.LineDashStyle = ChartDashStyle.Dot;
             Point mousePoint = new Point(e.X, e.Y);
             chartF1.ChartAreas[0].CursorX.SetCursorPixelPosition(mousePoint, true);
             chartF1.ChartAreas[0].CursorY.SetCursorPixelPosition(mousePoint, true);
+        }
+
+        private void chartF1_MouseLeave(object sender, EventArgs e)
+        {
+            chartF1.ChartAreas[0].CursorX.LineDashStyle = ChartDashStyle.NotSet;
+            chartF1.ChartAreas[0].CursorY.LineDashStyle = ChartDashStyle.NotSet;
         }
 
         private void button2_Click(object sender, EventArgs e)

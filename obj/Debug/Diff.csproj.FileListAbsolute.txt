@@ -54,3 +54,63 @@ E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Diff.csproj.CopyCompl
 E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.exe
 E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.pdb
 E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.FormSettings.resources
+E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.AboutBox.resources
+E:\Уроки\4 курс\ВООП\Курсова\obj\Debug\Курсова.FormHelp.resources
+c:\Курсова\bin\Debug\Курсова.exe.config
+c:\Курсова\bin\Debug\Курсова.exe
+c:\Курсова\bin\Debug\Курсова.pdb
+c:\Курсова\bin\Debug\ClosedXML.dll
+c:\Курсова\bin\Debug\DocumentFormat.OpenXml.dll
+c:\Курсова\bin\Debug\ExcelNumberFormat.dll
+c:\Курсова\bin\Debug\Irony.dll
+c:\Курсова\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+c:\Курсова\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+c:\Курсова\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
+c:\Курсова\bin\Debug\Microsoft.Extensions.Logging.Abstractions.dll
+c:\Курсова\bin\Debug\Microsoft.Extensions.Logging.dll
+c:\Курсова\bin\Debug\Microsoft.Extensions.Options.dll
+c:\Курсова\bin\Debug\Microsoft.Extensions.Primitives.dll
+c:\Курсова\bin\Debug\Newtonsoft.Json.dll
+c:\Курсова\bin\Debug\SixLabors.Fonts.dll
+c:\Курсова\bin\Debug\System.Buffers.dll
+c:\Курсова\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+c:\Курсова\bin\Debug\System.IO.Packaging.dll
+c:\Курсова\bin\Debug\System.Memory.dll
+c:\Курсова\bin\Debug\System.Numerics.Vectors.dll
+c:\Курсова\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+c:\Курсова\bin\Debug\System.Threading.Tasks.Extensions.dll
+c:\Курсова\bin\Debug\System.ValueTuple.dll
+c:\Курсова\bin\Debug\XLParser.dll
+c:\Курсова\bin\Debug\ClosedXML.xml
+c:\Курсова\bin\Debug\DocumentFormat.OpenXml.xml
+c:\Курсова\bin\Debug\ExcelNumberFormat.xml
+c:\Курсова\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+c:\Курсова\bin\Debug\Microsoft.Extensions.DependencyInjection.xml
+c:\Курсова\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+c:\Курсова\bin\Debug\Microsoft.Extensions.Logging.xml
+c:\Курсова\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
+c:\Курсова\bin\Debug\Microsoft.Extensions.Options.xml
+c:\Курсова\bin\Debug\Microsoft.Extensions.Primitives.xml
+c:\Курсова\bin\Debug\Newtonsoft.Json.xml
+c:\Курсова\bin\Debug\SixLabors.Fonts.xml
+c:\Курсова\bin\Debug\System.Buffers.xml
+c:\Курсова\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+c:\Курсова\bin\Debug\System.IO.Packaging.xml
+c:\Курсова\bin\Debug\System.Memory.xml
+c:\Курсова\bin\Debug\System.Numerics.Vectors.xml
+c:\Курсова\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+c:\Курсова\bin\Debug\System.Threading.Tasks.Extensions.xml
+c:\Курсова\bin\Debug\System.ValueTuple.xml
+c:\Курсова\obj\Debug\Diff.csproj.AssemblyReference.cache
+c:\Курсова\obj\Debug\Курсова.AboutBox.resources
+c:\Курсова\obj\Debug\Курсова.Form1.resources
+c:\Курсова\obj\Debug\Курсова.FormHelp.resources
+c:\Курсова\obj\Debug\Курсова.FormModalShowManyMethods.resources
+c:\Курсова\obj\Debug\Курсова.FormChart.resources
+c:\Курсова\obj\Debug\Курсова.FormSettings.resources
+c:\Курсова\obj\Debug\Курсова.Properties.Resources.resources
+c:\Курсова\obj\Debug\Diff.csproj.GenerateResource.cache
+c:\Курсова\obj\Debug\Diff.csproj.CoreCompileInputs.cache
+c:\Курсова\obj\Debug\Diff.csproj.CopyComplete
+c:\Курсова\obj\Debug\Курсова.exe
+c:\Курсова\obj\Debug\Курсова.pdb
