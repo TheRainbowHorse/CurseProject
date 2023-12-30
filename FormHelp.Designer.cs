@@ -29,7 +29,6 @@ namespace Курсова
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHelp));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Базовий синтаксис");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Математичні функції");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Константи");
@@ -51,14 +50,15 @@ namespace Курсова
             treeNode9,
             treeNode10,
             treeNode11});
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHelp));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.treeView1 = new System.Windows.Forms.TreeView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonNext = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -86,6 +86,43 @@ namespace Курсова
             this.splitContainer1.Size = new System.Drawing.Size(627, 342);
             this.splitContainer1.SplitterDistance = 188;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // treeView1
+            // 
+            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.Location = new System.Drawing.Point(0, 46);
+            this.treeView1.Name = "treeView1";
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "Базовий синтаксис";
+            treeNode2.Name = "Node1";
+            treeNode2.Text = "Математичні функції";
+            treeNode3.Name = "Node0";
+            treeNode3.Text = "Константи";
+            treeNode4.Name = "Node0";
+            treeNode4.Text = "Синтаксис";
+            treeNode5.Name = "Node2";
+            treeNode5.Text = "Методи";
+            treeNode6.Name = "Node3";
+            treeNode6.Text = "Способи експорта даних";
+            treeNode7.Name = "Node1";
+            treeNode7.Text = "Базове керування";
+            treeNode8.Name = "Node0";
+            treeNode8.Text = "Умови";
+            treeNode9.Name = "Node1";
+            treeNode9.Text = "Розрахунок";
+            treeNode10.Name = "Node2";
+            treeNode10.Text = "Графік";
+            treeNode11.Name = "Node3";
+            treeNode11.Text = "Експорт";
+            treeNode12.Name = "Node2";
+            treeNode12.Text = "Просунуте керування";
+            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode7,
+            treeNode12});
+            this.treeView1.Size = new System.Drawing.Size(188, 296);
+            this.treeView1.TabIndex = 0;
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // tableLayoutPanel1
             // 
@@ -150,43 +187,6 @@ namespace Курсова
             this.textBox1.Size = new System.Drawing.Size(104, 22);
             this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // treeView1
-            // 
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Location = new System.Drawing.Point(0, 46);
-            this.treeView1.Name = "treeView1";
-            treeNode1.Name = "Node0";
-            treeNode1.Text = "Базовий синтаксис";
-            treeNode2.Name = "Node1";
-            treeNode2.Text = "Математичні функції";
-            treeNode3.Name = "Node0";
-            treeNode3.Text = "Константи";
-            treeNode4.Name = "Node0";
-            treeNode4.Text = "Синтаксис";
-            treeNode5.Name = "Node2";
-            treeNode5.Text = "Методи";
-            treeNode6.Name = "Node3";
-            treeNode6.Text = "Способи експорта даних";
-            treeNode7.Name = "Node1";
-            treeNode7.Text = "Базове керування";
-            treeNode8.Name = "Node0";
-            treeNode8.Text = "Умови";
-            treeNode9.Name = "Node1";
-            treeNode9.Text = "Розрахунок";
-            treeNode10.Name = "Node2";
-            treeNode10.Text = "Графік";
-            treeNode11.Name = "Node3";
-            treeNode11.Text = "Експорт";
-            treeNode12.Name = "Node2";
-            treeNode12.Text = "Просунуте керування";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode7,
-            treeNode12});
-            this.treeView1.Size = new System.Drawing.Size(188, 296);
-            this.treeView1.TabIndex = 0;
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // richTextBox1
             // 

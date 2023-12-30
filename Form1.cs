@@ -203,23 +203,23 @@ namespace Курсова
             {
                 if (Properties.Settings.Default.useDefaultConditions)
                 {
-                    if (Properties.Settings.Default.defaultX0 != "" && !String.IsNullOrEmpty(textBox2.Text))
+                    if (Properties.Settings.Default.defaultX0 != "" && String.IsNullOrEmpty(textBox2.Text))
                         x0 = double.Parse(Properties.Settings.Default.defaultX0.Replace('.', ','));
                     else
                         x0 = double.Parse(textBox2.Text.Replace('.', ','));
-                    if (Properties.Settings.Default.defaultY0 != "" && !String.IsNullOrEmpty(textBox2.Text))
+                    if (Properties.Settings.Default.defaultY0 != "" && String.IsNullOrEmpty(textBox3.Text))
                         y0 = double.Parse(Properties.Settings.Default.defaultY0.Replace('.', ','));
                     else
                         y0 = double.Parse(textBox3.Text.Replace('.', ','));
-                    if (Properties.Settings.Default.defaultXmin != "" && !String.IsNullOrEmpty(textBox2.Text))
+                    if (Properties.Settings.Default.defaultXmin != "" && String.IsNullOrEmpty(textBox4.Text))
                         xmin = double.Parse(Properties.Settings.Default.defaultXmin.Replace('.', ','));
                     else
                         xmin = double.Parse(textBox4.Text.Replace('.', ','));
-                    if (Properties.Settings.Default.defaultXmax != "" && !String.IsNullOrEmpty(textBox2.Text))
+                    if (Properties.Settings.Default.defaultXmax != "" && String.IsNullOrEmpty(textBox5.Text))
                         xmax = double.Parse(Properties.Settings.Default.defaultXmax.Replace('.', ','));
                     else
                         xmax = double.Parse(textBox5.Text.Replace('.', ','));
-                    if (Properties.Settings.Default.defaultH != "" && !String.IsNullOrEmpty(textBox2.Text))
+                    if (Properties.Settings.Default.defaultH != "" && String.IsNullOrEmpty(textBox6.Text))
                         h = double.Parse(Properties.Settings.Default.defaultH.Replace('.', ','));
                     else
                         h = double.Parse(textBox6.Text.Replace('.', ','));
@@ -612,6 +612,7 @@ namespace Курсова
                     double y = y0 + (df + dfn) * h / 2; //x*y+y^5-r3(x)
 
                     x0 += h;
+                    x0 = Round(x0, 9);
                     y0 = y;
                     if (Round(x0, xminDC) >= Round(xmin, xminDC))
                     {
